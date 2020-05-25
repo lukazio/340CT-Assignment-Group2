@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "683105077948",
+    "firebase_url": "https://math-rpg.firebaseio.com",
+    "project_id": "math-rpg",
+    "storage_bucket": "math-rpg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683105077948:android:afb25e6f2a0c76524fdeb9",
+        "android_client_info": {
+          "package_name": "com.example.mathrpg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683105077948-qbl3rdv03thi2g9rou7hkrsd078vgi5p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mathrpg",
+            "certificate_hash": "ed6f77e19b99ffe1932585abe3c276e8529421a4"
+          }
+        },
+        {
+          "client_id": "683105077948-tklrcume1q27fo3nq7cfergo12oqf49c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB56fwgPCiu7C_TVWkEptQr0CWgn-TXjG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683105077948-tklrcume1q27fo3nq7cfergo12oqf49c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
