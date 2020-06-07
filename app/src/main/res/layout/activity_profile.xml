@@ -6,16 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
+    <!-- Player icon will be male portrait if chosen gender is Male, otherwise show the female portrait -->
     <ImageView
         android:id="@+id/iv_character"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:adjustViewBounds="true"
+        android:maxWidth="120dp"
+        android:maxHeight="120dp"
+        android:background="#000000"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_person_placeholder" />
+        app:srcCompat="@drawable/player_male" />
 
     <TextView
         android:id="@+id/tv_player_name"
