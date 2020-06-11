@@ -19,25 +19,25 @@ public class StageActivity extends AppCompatActivity {
 
     ImageView ivStagePlayer;
     TextView tvPlayerStageName,tvPlayerStageLevel;
-    SharedPreferences spStage;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stage);
 
-        spStage = getSharedPreferences("User", Context.MODE_PRIVATE);
+        prefs = getSharedPreferences("User", Context.MODE_PRIVATE);
 
         ivStagePlayer = (ImageView)findViewById(R.id.iv_stage_player);
         tvPlayerStageName = (TextView)findViewById(R.id.tv_player_stage_name);
         tvPlayerStageLevel = (TextView)findViewById(R.id.tv_player_stage_level);
 
         //TODO: get level when it is stored in database
-        if(spStage.contains("name")){
-            tvPlayerStageName.setText(spStage.getString("name","ERROR: 'name' not specified"));
+        if(prefs.contains("name")){
+            tvPlayerStageName.setText(prefs.getString("name","ERROR: 'name' not specified"));
         }
-        if(spStage.contains("gender")){
-            switch(Objects.requireNonNull(spStage.getString("gender", "ERROR: 'gender' not specified"))){
+        if(prefs.contains("gender")){
+            switch(Objects.requireNonNull(prefs.getString("gender", "ERROR: 'gender' not specified"))){
                 case "boy":
                     ivStagePlayer.setImageDrawable(getDrawable(R.drawable.player_male));
                     break;

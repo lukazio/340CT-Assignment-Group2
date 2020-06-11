@@ -19,14 +19,14 @@ public class ProfileActivity extends AppCompatActivity {
 
     TextView tvPlayerName,tvPlayerLevel,tvPlayerNextLevel,tvPlayerMaxHP,tvPlayerAttack,tvPlayerDefense,tvPlayerDifficulty;
     ImageView ivCharacter;
-    SharedPreferences spProfile;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        spProfile = getSharedPreferences("User", Context.MODE_PRIVATE);
+        prefs = getSharedPreferences("User", Context.MODE_PRIVATE);
 
         tvPlayerName = (TextView)findViewById(R.id.tv_player_name);
         tvPlayerLevel = (TextView)findViewById(R.id.tv_player_level);
@@ -38,11 +38,11 @@ public class ProfileActivity extends AppCompatActivity {
         ivCharacter = (ImageView)findViewById(R.id.iv_character);
 
         //TODO: get player information from database when logged in after database, login, register are complete
-        if(spProfile.contains("name")){
-            tvPlayerName.setText(spProfile.getString("name","ERROR: 'name' not specified"));
+        if(prefs.contains("name")){
+            tvPlayerName.setText(prefs.getString("name","ERROR: 'name' not specified"));
         }
-        if(spProfile.contains("gender")){
-            switch(Objects.requireNonNull(spProfile.getString("gender", "ERROR: 'gender' not specified"))){
+        if(prefs.contains("gender")){
+            switch(Objects.requireNonNull(prefs.getString("gender", "ERROR: 'gender' not specified"))){
                 case "boy":
                     ivCharacter.setImageDrawable(getDrawable(R.drawable.player_male));
                     break;
@@ -67,7 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(ProfileActivity.this, "You have logged out", Toast.LENGTH_SHORT).show();
 
-                SharedPreferences.Editor editor = spProfile.edit();
+                SharedPreferences.Editor editor = prefs.edit();
                 editor.clear();
                 editor.apply();
 
