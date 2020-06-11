@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/popup_bg"
+    android:focusableInTouchMode="true"
+    tools:context=".Instructure">
+
+    <TextView
+        android:id="@+id/txn_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sevillana"
+        android:text="Help"
+        android:textSize="60dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_close"
+        app:layout_constraintHorizontal_bias="0.653"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/txn_how_to_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/sevillana"
+        android:text="How to register?"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txn_help" />
+
+    <TextView
+        android:id="@+id/txn_how_to_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/sevillana"
+        android:text="How to play?"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/txn_register_help"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/txn_register_help"
+        app:layout_constraintTop_toBottomOf="@+id/txn_register_help" />
+
+    <TextView
+        android:id="@+id/txn_register_help"
+        android:layout_width="260dp"
+        android:layout_height="180dp"
+        android:text="@string/Register_help"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txn_how_to_register" />
+
+    <Button
+        android:id="@+id/btn_close"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:background="@drawable/close_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txn_play_help"
+        android:layout_width="260dp"
+        android:layout_height="180dp"
+        android:text="@string/play_help"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txn_how_to_play" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
