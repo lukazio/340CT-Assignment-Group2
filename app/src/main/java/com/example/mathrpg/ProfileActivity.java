@@ -40,14 +40,13 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(ProfileActivity.this, "You have logged out", Toast.LENGTH_SHORT).show();
-                finish();
             }
         });
         logoutAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //Test successful cancellation
-                Toast.makeText(ProfileActivity.this, "Logout cancelled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "Test success: Logout cancelled", Toast.LENGTH_SHORT).show();
             }
         });
 

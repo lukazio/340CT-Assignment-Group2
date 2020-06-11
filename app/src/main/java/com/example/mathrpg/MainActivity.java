@@ -27,9 +27,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //Test code to go into ProfileActivity, can remove after main menu is designed
-    public void onClick_btnTest(View view) {
-        Intent intent = new Intent(this,ProfileActivity.class);
+    //Test code to go into LoginActivity, can remove after main menu is designed
+    public void onClick_btnTestLogin(View view) {
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+    }
+
+    //Test code to go into StageActivity, can remove after main menu is designed
+    public void onClick_btnTestStage(View view) {
+        Intent intent = new Intent(this,StageActivity.class);
         startActivity(intent);
     }
 }

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">MathRPG</string>
-
-    <string name="Register_help">Tell user on how to register XX XX XXXXX XXXX XXXX XX X XX XXXX XXXXX XXX XX XXX XX XXX XX XX XX XX XX</string>
-    <string name="play_help">Tell user on how to play XX XX XXXXX XXXX XXXX XX X XX XXXX XXXXX XXX XX</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
