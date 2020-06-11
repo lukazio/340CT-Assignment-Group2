@@ -135,7 +135,7 @@ public class SignupActivity extends AppCompatActivity {
                         data.put("gender", gender);
 
                         //Saving into Firestore database upon success signup on Firebase Auth
-                        db.collection("User").document(authResult.getUser().getUid().toString()).set(data)
+                        db.collection("Users").document(authResult.getUser().getUid().toString()).set(data)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
