@@ -3,18 +3,52 @@ package com.example.mathrpg;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Objects;
+
 public class StageActivity extends AppCompatActivity {
+
+    ImageView ivStagePlayer;
+    TextView tvPlayerStageName,tvPlayerStageLevel;
+    SharedPreferences spStage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stage);
+
+        spStage = getSharedPreferences("User", Context.MODE_PRIVATE);
+
+        ivStagePlayer = (ImageView)findViewById(R.id.iv_stage_player);
+        tvPlayerStageName = (TextView)findViewById(R.id.tv_player_stage_name);
+        tvPlayerStageLevel = (TextView)findViewById(R.id.tv_player_stage_level);
+
+        //TODO: get level when it is stored in database
+        if(spStage.contains("name")){
+            tvPlayerStageName.setText(spStage.getString("name","ERROR: 'name' not specified"));
+        }
+        if(spStage.contains("gender")){
+            switch(Objects.requireNonNull(spStage.getString("gender", "ERROR: 'gender' not specified"))){
+                case "boy":
+                    ivStagePlayer.setImageDrawable(getDrawable(R.drawable.player_male));
+                    break;
+                case "girl":
+                    ivStagePlayer.setImageDrawable(getDrawable(R.drawable.player_female));
+                    break;
+                default:
+                    ivStagePlayer.setImageDrawable(getDrawable(R.drawable.ic_person_placeholder));
+                    break;
+            }
+        }
 
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tl_stage);
         tabLayout.addTab(tabLayout.newTab().setText("Stage 1"));

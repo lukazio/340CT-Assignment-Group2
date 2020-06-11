@@ -15,16 +15,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Mbtn_help =(Button)findViewById(R.id.btn_Help);
-
-        Mbtn_help.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),Instructure.class);
-                startActivity(i);
-            }
-        });
     }
 
     //Test code to go into LoginActivity, can remove after main menu is designed
