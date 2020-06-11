@@ -14,6 +14,7 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".StageActivity" />
         <activity android:name=".HelpActivity" />
+        <activity android:name=".Instructure" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
