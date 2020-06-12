@@ -49,8 +49,8 @@
         android:id="@+id/txn_register_help"
         android:layout_width="260dp"
         android:layout_height="180dp"
-        android:text="@string/Register_help"
-        android:textSize="25dp"
+        android:text="Instructions on how to register"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txn_how_to_register" />
@@ -67,8 +67,8 @@
         android:id="@+id/txn_play_help"
         android:layout_width="260dp"
         android:layout_height="180dp"
-        android:text="@string/play_help"
-        android:textSize="25dp"
+        android:text="Instructions on how to play"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txn_how_to_play" />

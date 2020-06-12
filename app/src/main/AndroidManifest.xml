@@ -20,6 +20,8 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".StageActivity" />
         <activity android:name=".HelpActivity" />
+        <activity android:name=".Instructure"
+            android:theme="@style/AppTheme.popWindow"/>
         <activity android:name=".MainActivity">
         </activity>
 
