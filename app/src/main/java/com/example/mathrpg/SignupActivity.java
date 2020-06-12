@@ -93,11 +93,11 @@ public class SignupActivity extends AppCompatActivity {
                 }
 
                 if (validation(email,password,confirm_pass,username,gender)) {
-                   registerUser(email,password,username,gender);
+                    registerUser(email,password,username,gender);
                 }
 
-        }
-      });
+            }
+        });
     }
 
     /**
