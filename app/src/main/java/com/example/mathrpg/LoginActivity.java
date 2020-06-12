@@ -32,7 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText inputEmail, inputPass;
-    private Button btnSignup, btnLogin;
+    private Button btnSignup, btnLogin, btnlogout, btnlogin2;
     private FirebaseAuth auth;
     private FirebaseFirestore db;
     private ConstraintLayout activityLayout;
@@ -48,7 +48,9 @@ public class LoginActivity extends AppCompatActivity {
         inputPass = findViewById(R.id.login_pw);
         btnLogin = findViewById(R.id.login_button);
         btnSignup = findViewById(R.id.signup_button);
+        btnlogout = findViewById(R.id.btn_logout);
         activityLayout = findViewById(R.id.loginCL);
+        btnlogin2 = findViewById(R.id.btn_login);
 
         //Firebase initializations
         auth = FirebaseAuth.getInstance();
@@ -124,6 +126,8 @@ public class LoginActivity extends AppCompatActivity {
                                         dialog.dismiss();
                                         //Go to Home Page after success login and save to database
                                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                        btnlogout.setVisibility(View.VISIBLE);
+                                        btnlogin2.setVisibility(View.INVISIBLE);
                                         finish();
                                     }
                                 })

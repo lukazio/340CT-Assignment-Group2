@@ -7,20 +7,120 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btn_test1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login Test"
+        android:id="@+id/btn_login"
+        android:layout_width="151dp"
+        android:layout_height="73dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/medievalsharp"
         android:onClick="onClick_btnTestLogin"
+        android:text="login"
+        android:textAllCaps="true"
+        android:textColor="#8B0000"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.616" />
 
     <Button
-        android:id="@+id/btn_test2"
+        android:id="@+id/btn_logout"
+        android:layout_width="151dp"
+        android:layout_height="73dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/medievalsharp"
+        android:text="logout"
+        android:textAllCaps="true"
+        android:textColor="#8B0000"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.616" />
+
+    <Button
+        android:id="@+id/btn_stage"
+        android:layout_width="151dp"
+        android:layout_height="73dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/medievalsharp"
+        android:onClick="onClick_btnTestStage"
+        android:text="stage"
+        android:textAllCaps="true"
+        android:textColor="#8B0000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.43" />
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stage Test"
-        android:onClick="onClick_btnTestStage"
-        app:layout_constraintStart_toEndOf="@+id/btn_test1"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:fontFamily="@font/medievalsharp"
+        android:text="Welcome to MathRPG"
+        android:textColor="#0000FF"
+        android:textSize="33sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_stage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.726" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="198dp"
+        android:layout_height="267dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login"
+        app:srcCompat="@drawable/character" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="157dp"
+        android:layout_height="124dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login"
+        app:layout_constraintVertical_bias="0.364"
+        app:srcCompat="@drawable/chatbox" />
+
+    <TextView
+        android:id="@+id/textMessage"
+        android:layout_width="98dp"
+        android:layout_height="47dp"
+        android:text="Good Luck Have Fun!"
+        android:textColor="#0000FF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="0.474"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.246" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="121dp"
+        android:layout_height="143dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
