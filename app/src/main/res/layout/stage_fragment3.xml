@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/stagefinal_bg"
     tools:context=".StageFragment3" >
 
     <TextView
@@ -11,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="FINAL STAGE"
-        android:textColor="#00BFA8"
+        android:textColor="#9B59B6"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +30,7 @@
         android:id="@+id/btn_stage3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#008577"
+        android:backgroundTint="#E74C3C"
         android:text="IT'S SHOWTIME!"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
