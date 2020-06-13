@@ -27,7 +27,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/sevillana"
         android:text="How to register?"
-        android:textSize="30dp"
+        android:textSize="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txn_help" />
@@ -39,7 +39,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@font/sevillana"
         android:text="How to play?"
-        android:textSize="30dp"
+        android:textSize="35dp"
         app:layout_constraintEnd_toEndOf="@+id/txn_register_help"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/txn_register_help"
@@ -47,10 +47,10 @@
 
     <TextView
         android:id="@+id/txn_register_help"
-        android:layout_width="260dp"
-        android:layout_height="180dp"
-        android:text="Instructions on how to register"
-        android:textSize="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1. Tap 'LOGIN'\n2. Tap the 'No account yet?' message\n3. Enter your details\n4. Register and play"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txn_how_to_register" />
@@ -65,10 +65,10 @@
 
     <TextView
         android:id="@+id/txn_play_help"
-        android:layout_width="260dp"
-        android:layout_height="180dp"
-        android:text="Instructions on how to play"
-        android:textSize="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1. Make sure to login to your account to play\n2. Tap 'STAGE'\n3. Select a stage to play\n4. Attack by answering questions, the more\ncorrect answers, the more damage you do.\nIf you get a wrong answer, you turn ends\n5. Defend by answering 1 question, take less\ndamage if correct"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txn_how_to_play" />
