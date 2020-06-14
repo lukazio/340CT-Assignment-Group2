@@ -63,7 +63,6 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
-            android:onClick="onClick_btnProfile"
             app:srcCompat="@drawable/ic_button_next" />
 
     </RelativeLayout>

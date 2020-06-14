@@ -2,10 +2,10 @@ package com.example.mathrpg;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,9 +17,10 @@ import java.util.Objects;
 
 public class StageActivity extends AppCompatActivity {
 
-    ImageView ivStagePlayer;
+    ImageView ivStagePlayer,btnProfile;
     TextView tvPlayerStageName,tvPlayerStageLevel;
     SharedPreferences prefs;
+    SoundPool sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,11 @@ public class StageActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("User", Context.MODE_PRIVATE);
 
+        sp = new SoundPool.Builder().build();
+        final int profileSound = sp.load(StageActivity.this, R.raw.profile_open,1);
+
         ivStagePlayer = (ImageView)findViewById(R.id.iv_stage_player);
+        btnProfile = (ImageView)findViewById(R.id.btn_profile);
         tvPlayerStageName = (TextView)findViewById(R.id.tv_player_stage_name);
         tvPlayerStageLevel = (TextView)findViewById(R.id.tv_player_stage_level);
 
@@ -76,10 +81,14 @@ public class StageActivity extends AppCompatActivity {
 
             }
         });
-    }
 
-    public void onClick_btnProfile(View view) {
-        Intent intent = new Intent(this,ProfileActivity.class);
-        startActivity(intent);
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sp.play(profileSound,1,1,1,0,1.0f);
+                Intent intent = new Intent(StageActivity.this,ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

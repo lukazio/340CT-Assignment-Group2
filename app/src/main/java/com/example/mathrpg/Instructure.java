@@ -1,5 +1,6 @@
 package com.example.mathrpg;
 
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -31,16 +32,15 @@ public class Instructure extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         int width = dm.widthPixels;
-        int height= dm.heightPixels;
+        int height = dm.heightPixels;
 
         getWindow().setLayout((int)(width*.8),(int)(height*.7));
 
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.x = 0;
-        params.y=10;
+        params.y = 10;
 
         getWindow().setAttributes(params);
-
     }
 }
