@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.security.interfaces.RSAKey;
 import java.util.Objects;
 
 public class StageActivity extends AppCompatActivity {
@@ -29,8 +30,9 @@ public class StageActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("User", Context.MODE_PRIVATE);
 
-        sp = new SoundPool.Builder().build();
+        sp = new SoundPool.Builder().setMaxStreams(5).build();
         final int profileSound = sp.load(StageActivity.this, R.raw.profile_open,1);
+        final int pageSound = sp.load(StageActivity.this, R.raw.stage_swipe,1);
 
         ivStagePlayer = (ImageView)findViewById(R.id.iv_stage_player);
         btnProfile = (ImageView)findViewById(R.id.btn_profile);
@@ -68,6 +70,7 @@ public class StageActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                sp.play(pageSound,1,1,1,0,1.0f);
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
