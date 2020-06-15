@@ -22,6 +22,8 @@ public class StageFragment3 extends Fragment {
 
         View view = inflater.inflate(R.layout.stage_fragment3, container, false);
 
+        //TODO: Hide secret stage button, display button if player account has completed all previous stages including final stage
+
         // Inflate the layout for this fragment
         return view;
     }
