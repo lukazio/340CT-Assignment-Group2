@@ -18,10 +18,10 @@ import java.util.Objects;
 
 public class StageActivity extends AppCompatActivity {
 
-    ImageView ivStagePlayer,btnProfile;
-    TextView tvPlayerStageName,tvPlayerStageLevel;
-    SharedPreferences prefs;
-    SoundPool sp;
+    private ImageView ivStagePlayer,btnProfile;
+    private TextView tvPlayerStageName,tvPlayerStageLevel;
+    private SharedPreferences prefs;
+    private SoundPool sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

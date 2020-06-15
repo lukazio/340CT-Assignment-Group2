@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Instructure extends AppCompatActivity {
 
-    Button btn_close;
+    private Button btn_close;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

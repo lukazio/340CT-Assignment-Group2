@@ -16,10 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button Mbtn_help,btnStage,btnLogin,btnLogout;
-    AudioAttributes attrs;
-    SoundPool sp;
-    SharedPreferences prefs;
+    private Button Mbtn_help,btnStage,btnLogin,btnLogout;
+    private AudioAttributes attrs;
+    private SoundPool sp;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
