@@ -33,13 +33,13 @@
         android:backgroundTint="#9B59B6"
         android:text="\???"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/btn_stage3"
+        app:layout_constraintBottom_toTopOf="@+id/btn_stage_final"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
     <Button
-        android:id="@+id/btn_stage3"
+        android:id="@+id/btn_stage_final"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#E74C3C"

@@ -23,4 +23,9 @@
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
 
+    <style name="StoryDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorAccent">@android:color/holo_orange_dark</item>
+        <item name="android:textColor">@android:color/holo_orange_light</item>
+        <item name="android:textColorPrimary">@android:color/holo_orange_light</item>
+    </style>
 </resources>

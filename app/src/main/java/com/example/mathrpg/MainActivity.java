@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 logoutAlert.setCancelable(false);
                 logoutAlert.setTitle("Logout");
                 logoutAlert.setMessage("Are you sure you want to logout?");
-
                 logoutAlert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -107,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                     }
                 });
-
                 logoutAlert.show();
             }
         });
