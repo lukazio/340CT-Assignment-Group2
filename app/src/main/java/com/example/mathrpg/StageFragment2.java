@@ -41,6 +41,7 @@ public class StageFragment2 extends Fragment {
         sp = new SoundPool.Builder().build();
 
         final int selectSound = sp.load(view.getContext(), R.raw.stage_select,1);
+        final int confirmSound = sp.load(view.getContext(), R.raw.stage_confirm,1);
         storyAlertBuilder = new AlertDialog.Builder(view.getContext(), R.style.StoryDialogTheme);
 
         btnStage21.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +53,7 @@ public class StageFragment2 extends Fragment {
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        sp.play(confirmSound,1,1,1,0,1.0f);
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -75,7 +76,7 @@ public class StageFragment2 extends Fragment {
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        sp.play(confirmSound,1,1,1,0,1.0f);
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -98,7 +99,7 @@ public class StageFragment2 extends Fragment {
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        sp.play(confirmSound,1,1,1,0,1.0f);
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {

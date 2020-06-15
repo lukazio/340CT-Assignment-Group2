@@ -45,6 +45,7 @@ public class StageFragment1 extends Fragment {
         sp = new SoundPool.Builder().build();
 
         final int selectSound = sp.load(view.getContext(), R.raw.stage_select,1);
+        final int confirmSound = sp.load(view.getContext(), R.raw.stage_confirm,1);
         storyAlertBuilder = new AlertDialog.Builder(view.getContext(), R.style.StoryDialogTheme);
 
         //TODO: Remove test battle button and this onClickListener when done
@@ -66,7 +67,7 @@ public class StageFragment1 extends Fragment {
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        sp.play(confirmSound,1,1,1,0,1.0f);
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -89,7 +90,7 @@ public class StageFragment1 extends Fragment {
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        sp.play(confirmSound,1,1,1,0,1.0f);
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -112,7 +113,7 @@ public class StageFragment1 extends Fragment {
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        sp.play(confirmSound,1,1,1,0,1.0f);
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
