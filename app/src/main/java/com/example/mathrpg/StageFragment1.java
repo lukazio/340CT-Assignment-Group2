@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.SoundPool;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -28,6 +29,7 @@ public class StageFragment1 extends Fragment {
     private Button btnBattleTest,btnStage11,btnStage12,btnStage13;
     private AlertDialog.Builder storyAlertBuilder;
     private AlertDialog storyDialog;
+    private SoundPool sp;
 
     public StageFragment1() {
         // Required empty public constructor
@@ -40,7 +42,9 @@ public class StageFragment1 extends Fragment {
         btnStage11 = (Button)view.findViewById(R.id.btn_stage1_1);
         btnStage12 = (Button)view.findViewById(R.id.btn_stage1_2);
         btnStage13 = (Button)view.findViewById(R.id.btn_stage1_3);
+        sp = new SoundPool.Builder().build();
 
+        final int selectSound = sp.load(view.getContext(), R.raw.stage_select,1);
         storyAlertBuilder = new AlertDialog.Builder(view.getContext(), R.style.StoryDialogTheme);
 
         //TODO: Remove test battle button and this onClickListener when done
@@ -56,6 +60,7 @@ public class StageFragment1 extends Fragment {
         btnStage11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 1-1");
                 storyAlertBuilder.setMessage("Display stage 1-1 story");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
@@ -78,6 +83,7 @@ public class StageFragment1 extends Fragment {
         btnStage12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 1-2");
                 storyAlertBuilder.setMessage("Display stage 1-2 story");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
@@ -100,6 +106,7 @@ public class StageFragment1 extends Fragment {
         btnStage13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 1-3");
                 storyAlertBuilder.setMessage("Display stage 1-3 story");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
