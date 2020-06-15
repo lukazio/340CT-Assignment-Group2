@@ -55,34 +55,4 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
     }
-
-    public void onClick_btnLogout(View view) {
-        AlertDialog.Builder logoutAlert = new AlertDialog.Builder(this);
-        logoutAlert.setCancelable(false);
-        logoutAlert.setTitle("Logout");
-        logoutAlert.setMessage("Are you sure you want to logout?");
-
-        logoutAlert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(ProfileActivity.this, "You have logged out", Toast.LENGTH_SHORT).show();
-
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.clear();
-                editor.apply();
-
-                startActivity(new Intent(ProfileActivity.this,MainActivity.class));
-                finish();
-            }
-        });
-        logoutAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                //Test successful cancellation
-                Toast.makeText(ProfileActivity.this, "Test success: Logout cancelled", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        logoutAlert.show();
-    }
 }
