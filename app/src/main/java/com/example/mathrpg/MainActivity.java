@@ -102,11 +102,9 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(getIntent());
                     }
                 });
-                logoutAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                logoutAlert.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //Test successful cancellation
-                        Toast.makeText(MainActivity.this, "Test success: Logout cancelled", Toast.LENGTH_SHORT).show();
                     }
                 });
 
