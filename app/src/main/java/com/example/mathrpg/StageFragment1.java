@@ -26,7 +26,7 @@ import java.util.Objects;
  */
 public class StageFragment1 extends Fragment {
 
-    private Button btnBattleTest,btnStage11,btnStage12,btnStage13;
+    private Button btnStage11,btnStage12,btnStage13;
     private AlertDialog.Builder storyAlertBuilder;
     private AlertDialog storyDialog;
     private SoundPool sp;
@@ -48,22 +48,12 @@ public class StageFragment1 extends Fragment {
         final int confirmSound = sp.load(view.getContext(), R.raw.stage_confirm,1);
         storyAlertBuilder = new AlertDialog.Builder(view.getContext(), R.style.StoryDialogTheme);
 
-        //TODO: Remove test battle button and this onClickListener when done
-        btnBattleTest = (Button)view.findViewById(R.id.btn_battletest);
-        btnBattleTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent battleTestIntent = new Intent(view.getContext(),BattleActivity.class);
-                startActivity(battleTestIntent);
-            }
-        });
-
         btnStage11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 1-1");
-                storyAlertBuilder.setMessage("Display stage 1-1 story");
+                storyAlertBuilder.setMessage("You are a leader of a small adventuring group which consists of yourself, a magician, and your two close friends, Galter the knight and Maria the cleric. Your group has accepted an unnamed quest at the guild, which is to investigate a mystery in the neighbouring land.\n\n\"Let's go, friends! This way to the gate of Graycott Town and into the forest we go!\" You said as you merrily march towards the exit.\n\nA journey awaits you with unexpected events in the vast open world.");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -114,6 +104,13 @@ public class StageFragment1 extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         sp.play(confirmSound,1,1,1,0,1.0f);
+                        //Testing pass enemy info to BattleActivity
+                        Intent battleIntent = new Intent(getContext(), BattleActivity.class);
+                        battleIntent.putExtra("enemy3_sprite",R.drawable.stage1_3_boss);
+                        battleIntent.putExtra("enemy3_name","Lv.5 Forest Dragon");
+                        battleIntent.putExtra("battle_bg", R.drawable.stage1_battle_bg);
+                        battleIntent.putExtra("battle_music", R.raw.bgm_stage1_finalboss);
+                        startActivity(battleIntent);
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {

@@ -8,6 +8,7 @@
     tools:context=".BattleActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_bg_stage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="12"
@@ -17,8 +18,8 @@
             android:id="@+id/tv_enemy_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="[LV] [Enemy Name]"
             android:fontFamily="@font/medievalsharp"
+            android:text="[LV] [Enemy Name]"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/iv_enemy"
@@ -39,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.99"/>
+            app:layout_constraintGuide_percent="0.99" />
 
         <TextView
             android:id="@+id/textView5"
