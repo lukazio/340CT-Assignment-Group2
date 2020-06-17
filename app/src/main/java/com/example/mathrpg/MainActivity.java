@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private AudioAttributes attrs;
     private SoundPool sp;
     private SharedPreferences prefs;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         prefs = getSharedPreferences("User", Context.MODE_PRIVATE);
+        auth = FirebaseAuth.getInstance();
 
         //SFX builders
         attrs = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME).setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build();
@@ -93,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Toast.makeText(MainActivity.this, "You have logged out", Toast.LENGTH_SHORT).show();
 
+                        //Logout from Firebase Auth
+                        auth.signOut();
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.clear();
                         editor.apply();

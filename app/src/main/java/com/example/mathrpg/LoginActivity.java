@@ -120,6 +120,11 @@ public class LoginActivity extends AppCompatActivity {
                                         editor.putString("email",task.getResult().getString("email"));
                                         editor.putString("gender",task.getResult().getString("gender"));
                                         editor.putBoolean("login",true);
+                                        editor.putInt("level", task.getResult().getLong("level").intValue());
+                                        editor.putInt("attack", task.getResult().getLong("attack").intValue());
+                                        editor.putInt("defense", task.getResult().getLong("defense").intValue());
+                                        editor.putInt("exp", task.getResult().getLong("exp").intValue());
+                                        editor.putInt("progress", task.getResult().getLong("progress").intValue());
                                         editor.apply();
                                         dialog.dismiss();
                                         //Go to Home Page after success login and save to database
