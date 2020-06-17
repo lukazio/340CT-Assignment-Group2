@@ -76,7 +76,7 @@ public class StageFragment1 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 1-2");
-                storyAlertBuilder.setMessage("Display stage 1-2 story");
+                storyAlertBuilder.setMessage("After dispatching a group of frog monsters, your party sets up a quick camp nearby to take a break. You begin to wonder what is the real goal of this quest.\n\n\"Gosh, the quest only tells us to 'investigate a mystery to the north' and nothing else.\" Maria sighs.\n\n\"Well, guess the only way to find out is to continue travelling,\" Galter shrugs. \"Hope the reward will be worth our troubles.\"\n\nSuddenly, you hear a screeching sound off in the distance. It appears to be growing closer to your party.");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -99,7 +99,7 @@ public class StageFragment1 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 1-3");
-                storyAlertBuilder.setMessage("Display stage 1-3 story");
+                storyAlertBuilder.setMessage("You let out a sigh of relief as the last of the plant monsters fall. However, this victory did not last long, a threatening roar echoes the forest shortly after the battle.\n\n\"That does not sound good at all...\" said Galter, with an increasingly worried look.\n\nMaria looks into the sky. \"Oh no, that's a dragon, it's heading this way!\" she exclaimed.\n\nYou ready your magical powers and shouted, \"Be careful everyone, it looks strong!\"");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
