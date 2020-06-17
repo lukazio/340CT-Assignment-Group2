@@ -94,4 +94,10 @@ public class StageActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sp.release();
+    }
 }

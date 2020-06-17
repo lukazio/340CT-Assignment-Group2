@@ -95,9 +95,9 @@ public class BattleActivity extends AppCompatActivity {
         if(getIntent().getIntExtra("enemy3_sprite",0) == R.drawable.stagesecret_boss)
             Toast.makeText(this,"THERE IS N̷̜̭̙͐Ö̶̮̲́ ̴̳̗̖͇̞͛̈́Ȩ̶̧̳͙̑͂S̷̤̰̩̎̍̾C̴̭̥͖͘Ą̸͎̹̲̔͂̕̚ͅP̴̖͋̓̌E̵̪̥̫͗̋̎̒", Toast.LENGTH_SHORT).show();
         else{
+            //TODO: Override to bring up pause menu instead of finishing activity
             super.onBackPressed();
         }
-        //TODO: Override to bring up pause menu instead of finishing activity
     }
 
     @Override
@@ -121,5 +121,6 @@ public class BattleActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mp.release();
+        sp.release();
     }
 }
