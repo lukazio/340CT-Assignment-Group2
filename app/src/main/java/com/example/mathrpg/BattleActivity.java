@@ -4,8 +4,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
@@ -22,6 +24,7 @@ public class BattleActivity extends AppCompatActivity {
     private ConstraintLayout clBgStage;
     private TextView tvEnemyName,tvQuestion,tvTimer;
     private ImageView ivEnemy;
+    private SharedPreferences prefs;
     private MediaPlayer mp;
     private SoundPool sp;
 
@@ -29,6 +32,8 @@ public class BattleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
+
+        prefs = getSharedPreferences("User", Context.MODE_PRIVATE);
 
         clBgStage = (ConstraintLayout)findViewById(R.id.cl_bg_stage);
         tvEnemyName = (TextView)findViewById(R.id.tv_enemy_name);
