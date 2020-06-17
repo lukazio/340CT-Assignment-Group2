@@ -41,33 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
         ivCharacter = (ImageView)findViewById(R.id.iv_character);
 
         //Get player information from database when logged in after database, login, register are complete
-        db.collection("Users").document(prefs.getString("uid","NO_UID")).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        //Updating into local SharedPreferences on each Profile click
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putString("uid",task.getResult().getId().toString());
-                        editor.putString("name",task.getResult().getString("name"));
-                        editor.putString("email",task.getResult().getString("email"));
-                        editor.putString("gender",task.getResult().getString("gender"));
-                        editor.putBoolean("login",true);
-                        editor.putInt("level", task.getResult().getLong("level").intValue());
-                        editor.putInt("attack", task.getResult().getLong("attack").intValue());
-                        editor.putInt("defense", task.getResult().getLong("defense").intValue());
-                        editor.putInt("exp", task.getResult().getLong("exp").intValue());
-                        editor.putInt("progress", task.getResult().getLong("progress").intValue());
-                        editor.apply();
-
-                        //TODO: Firebase is async, call any subsequent functions requiring the data from here
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
+        setUserDetails();
 
         if(prefs.contains("name")){
             tvPlayerName.setText(prefs.getString("name","ERROR: 'name' not specified"));
@@ -85,5 +59,16 @@ public class ProfileActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+    /**
+     * Function to set & display user details from Firebase
+     */
+    private void setUserDetails(){
+        tvPlayerAttack.setText(prefs.getInt("attack",404)+"");
+        tvPlayerDefense.setText(prefs.getInt("defense",404)+"");
+        tvPlayerLevel.setText(prefs.getInt("level",404)+"");
+        tvPlayerMaxHP.setText(prefs.getInt("hp",404)+"");
+        tvPlayerNextLevel.setText(prefs.getInt("exp",404)+"");
     }
 }

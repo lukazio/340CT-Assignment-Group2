@@ -152,6 +152,7 @@ public class SignupActivity extends AppCompatActivity {
                                         editor.putString("email",email);
                                         editor.putString("gender",gender);
                                         editor.putBoolean("login",true);
+                                        editor.putInt("hp",10);
                                         editor.putInt("level", 1);
                                         editor.putInt("attack", 3);
                                         editor.putInt("defense", 3);

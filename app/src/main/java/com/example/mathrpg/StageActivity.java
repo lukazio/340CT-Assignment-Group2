@@ -49,31 +49,9 @@ public class StageActivity extends AppCompatActivity {
         tvPlayerStageLevel = (TextView)findViewById(R.id.tv_player_stage_level);
 
         //Get level when it is stored in database
-        db.collection("Users").document(prefs.getString("uid","NO_UID_FOUND")).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        //Updating into local SharedPreferences on each Stages click
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putInt("level",task.getResult().getLong("level").intValue());
-                        editor.putInt("attack",task.getResult().getLong("attack").intValue());
-                        editor.putInt("defense",task.getResult().getLong("defense").intValue());
-                        editor.putInt("exp",task.getResult().getLong("exp").intValue());
-                        editor.putInt("progress",task.getResult().getLong("progress").intValue());
-                        editor.apply();
-
-                        //TODO: level is already read from database, use it from SharedPreferences to conduct necessary action.
-                        //TODO: Firebase is async, subsequent actions have to be called in here.
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content),e.toString(),Snackbar.LENGTH_LONG).show();
-                    }
-                });
-
-
+        if(prefs.contains("level")){
+            tvPlayerStageLevel.setText(prefs.getInt("level",404)+"");
+        }
         if(prefs.contains("name")){
             tvPlayerStageName.setText(prefs.getString("name","ERROR: 'name' not specified"));
         }
