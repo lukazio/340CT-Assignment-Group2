@@ -53,6 +53,7 @@ public class StageActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        //Updating into local SharedPreferences on each Stages click
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putInt("level",task.getResult().getLong("level").intValue());
                         editor.putInt("attack",task.getResult().getLong("attack").intValue());

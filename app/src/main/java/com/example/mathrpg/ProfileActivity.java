@@ -45,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        //Updating into local SharedPreferences on each Profile click
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("uid",task.getResult().getId().toString());
                         editor.putString("name",task.getResult().getString("name"));

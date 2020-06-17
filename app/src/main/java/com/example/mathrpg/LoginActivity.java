@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        //Saving locally into Shared Preferences
+                                        //Saving / Updating locally into Shared Preferences
                                         SharedPreferences prefs = getSharedPreferences("User", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = prefs.edit();
                                         editor.putString("uid",task.getResult().getId().toString());
