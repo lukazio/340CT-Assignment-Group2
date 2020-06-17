@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private TextView tvPlayerName,tvPlayerLevel,tvPlayerNextLevel,tvPlayerMaxHP,tvPlayerAttack,tvPlayerDefense,tvPlayerDifficulty;
+    private TextView tvPlayerName,tvPlayerLevel,tvPlayerNextLevel,tvPlayerMaxHP,tvPlayerAttack,tvPlayerDefense;
     private ImageView ivCharacter;
     private SharedPreferences prefs;
 
@@ -29,7 +29,6 @@ public class ProfileActivity extends AppCompatActivity {
         tvPlayerMaxHP = (TextView)findViewById(R.id.tv_player_maxhp);
         tvPlayerAttack = (TextView)findViewById(R.id.tv_player_attack);
         tvPlayerDefense = (TextView)findViewById(R.id.tv_player_defense);
-        tvPlayerDifficulty = (TextView)findViewById(R.id.tv_player_difficulty);
         ivCharacter = (ImageView)findViewById(R.id.iv_character);
 
         //TODO: get player information from database when logged in after database, login, register are complete
