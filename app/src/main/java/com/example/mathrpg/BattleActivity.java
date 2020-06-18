@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +30,9 @@ public class BattleActivity extends AppCompatActivity {
     private SharedPreferences prefs;
     private MediaPlayer mp;
     private SoundPool sp;
+    private Button btnPause;
+    private AlertDialog.Builder pauseAlertBuilder;
+    private AlertDialog pauseDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +46,12 @@ public class BattleActivity extends AppCompatActivity {
         tvQuestion = (TextView)findViewById(R.id.tv_question);
         tvTimer = (TextView)findViewById(R.id.tv_timer);
         ivEnemy = (ImageView)findViewById(R.id.iv_enemy);
+        btnPause=(Button)findViewById(R.id.btn_pause);
 
         sp = new SoundPool.Builder().setMaxStreams(5).build();
+        final int selectSound = sp.load(this, R.raw.stage_select,1);
+
+        pauseAlertBuilder = new AlertDialog.Builder(this, R.style.StoryDialogTheme);
 
         //TODO: This area will get enemy stats info for each stage and also player info passed from the stage selection activities, for now this is a test
         //Get enemy names
@@ -88,6 +98,31 @@ public class BattleActivity extends AppCompatActivity {
                 secretDialog.show();
             }
         }
+
+        //Pause function
+        btnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mp.pause();
+                pauseAlertBuilder.setTitle("Pause");
+                pauseAlertBuilder.setCancelable(false);
+                pauseAlertBuilder.setPositiveButton("Resume", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mp.start();
+                    }
+                });
+                pauseAlertBuilder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        BattleActivity.this.finish();
+                    }
+                });
+                pauseDialog = pauseAlertBuilder.create();
+                Objects.requireNonNull(pauseDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E2C00")));
+                pauseDialog.show();
+            }
+        });
     }
 
     @Override
