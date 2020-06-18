@@ -1,5 +1,6 @@
 package com.example.mathrpg;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import android.content.Context;
@@ -11,7 +12,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.interfaces.RSAKey;
 import java.util.Objects;
@@ -22,6 +29,7 @@ public class StageActivity extends AppCompatActivity {
     private TextView tvPlayerStageName,tvPlayerStageLevel;
     private SharedPreferences prefs;
     private SoundPool sp;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,7 @@ public class StageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stage);
 
         prefs = getSharedPreferences("User", Context.MODE_PRIVATE);
+        db = FirebaseFirestore.getInstance();
 
         sp = new SoundPool.Builder().setMaxStreams(5).build();
         final int profileSound = sp.load(StageActivity.this, R.raw.profile_open,1);
@@ -39,7 +48,10 @@ public class StageActivity extends AppCompatActivity {
         tvPlayerStageName = (TextView)findViewById(R.id.tv_player_stage_name);
         tvPlayerStageLevel = (TextView)findViewById(R.id.tv_player_stage_level);
 
-        //TODO: get level when it is stored in database
+        //Get level when it is stored in database
+        if(prefs.contains("level")){
+            tvPlayerStageLevel.setText(prefs.getInt("level",404)+"");
+        }
         if(prefs.contains("name")){
             tvPlayerStageName.setText(prefs.getString("name","ERROR: 'name' not specified"));
         }

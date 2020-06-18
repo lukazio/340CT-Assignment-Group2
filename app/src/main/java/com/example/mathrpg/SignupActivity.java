@@ -133,6 +133,11 @@ public class SignupActivity extends AppCompatActivity {
                         data.put("name", username);
                         data.put("email", email);
                         data.put("gender", gender);
+                        data.put("level", 1);
+                        data.put("attack", 3);
+                        data.put("defense", 3);
+                        data.put("exp", 0);
+                        data.put("progress", 0);
 
                         //Saving into Firestore database upon success signup on Firebase Auth
                         db.collection("Users").document(authResult.getUser().getUid().toString()).set(data)
@@ -147,6 +152,12 @@ public class SignupActivity extends AppCompatActivity {
                                         editor.putString("email",email);
                                         editor.putString("gender",gender);
                                         editor.putBoolean("login",true);
+                                        editor.putInt("hp",10);
+                                        editor.putInt("level", 1);
+                                        editor.putInt("attack", 3);
+                                        editor.putInt("defense", 3);
+                                        editor.putInt("exp", 0);
+                                        editor.putInt("progress", 0);
                                         editor.apply();
                                         dialog.dismiss();
                                         //Go to Home Page after success login and save to database

@@ -53,7 +53,7 @@ public class BattleActivity extends AppCompatActivity {
 
         pauseAlertBuilder = new AlertDialog.Builder(this, R.style.StoryDialogTheme);
 
-        //TODO: This area will get enemy stats info for each stage and also player info passed from the stage selection activities, for now this is a test
+        //TODO: This area will get enemy stats info for each stage and also player info passed from the stage selection activities
         //Get enemy names
         if(getIntent().hasExtra("enemy1_name") && getIntent().hasExtra("enemy2_name") && getIntent().hasExtra("enemy3_name")){
             //If non-boss stage (e.g. not Stage 1-3 or 2-3), get 3 names of enemies
@@ -64,7 +64,7 @@ public class BattleActivity extends AppCompatActivity {
             tvEnemyName.setText("Lv.X EnemyName");
         //Get enemy sprites
         if(getIntent().hasExtra("enemy1_sprite") && getIntent().hasExtra("enemy2_sprite") && getIntent().hasExtra("enemy3_sprite")){
-            //If non-boss stage (e.g. not Stage 1-3 or 2-3), get 3 images of enemies
+            //If non-boss stage (e.g. not Stage 1-3 or 2-3), get 3 sprites of enemies
         }
         else if(getIntent().hasExtra("enemy3_sprite"))
             ivEnemy.setImageDrawable(getDrawable(getIntent().getIntExtra("enemy3_sprite",0)));
@@ -127,10 +127,12 @@ public class BattleActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(getIntent().getIntExtra("enemy3_sprite",0) == R.drawable.stagesecret_boss)
-            Toast.makeText(this,"THERE IS N̷̜̭̙͐Ö̶̮̲́ ̴̳̗̖͇̞͛̈́Ȩ̶̧̳͙̑͂S̷̤̰̩̎̍̾C̴̭̥͖͘Ą̸͎̹̲̔͂̕̚ͅP̴̖͋̓̌E̵̪̥̫͗̋̎̒", Toast.LENGTH_SHORT).show();
+        if(getIntent().getIntExtra("enemy3_sprite",0) == R.drawable.stagesecret_boss) {
+            //Secret boss prevents player from escaping by denying the pause menu
+            Toast.makeText(this, "THERE IS N̷̜̭̙͐Ö̶̮̲́ ̴̳̗̖͇̞͛̈́Ȩ̶̧̳͙̑͂S̷̤̰̩̎̍̾C̴̭̥͖͘Ą̸͎̹̲̔͂̕̚ͅP̴̖͋̓̌E̵̪̥̫͗̋̎̒", Toast.LENGTH_SHORT).show();
+        }
         else{
-            //TODO: Override to bring up pause menu instead of finishing activity
+            //TODO: To bring up pause menu instead of finishing activity, pressing Back again while pause menu is open will just resume battle
             super.onBackPressed();
         }
     }
@@ -139,6 +141,7 @@ public class BattleActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
+        //Secret boss calls player a "cheater" when attempting to quit app with the Home or Overview button
         if(getIntent().getIntExtra("enemy3_sprite",0) == R.drawable.stagesecret_boss)
             Toast.makeText(this,"C̵̡͕̫͊̍H̵͖̻͖̗̑̾̾̆̂Ẹ̶͒͐̔A̷̳̭͉̅Ț̴̨̱͉̺͗͌͛̉͝E̴̢̛̮̩͎̣͆͌̐̽R̶͙͚̾̒̔̾", Toast.LENGTH_LONG).show();
 

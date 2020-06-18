@@ -1,5 +1,6 @@
 package com.example.mathrpg;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,6 +31,7 @@ public class StageFragment1 extends Fragment {
     private AlertDialog.Builder storyAlertBuilder;
     private AlertDialog storyDialog;
     private SoundPool sp;
+    private SharedPreferences prefs;
 
     public StageFragment1() {
         // Required empty public constructor
@@ -39,6 +41,8 @@ public class StageFragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.stage_fragment1, container, false);
 
+        prefs = getContext().getSharedPreferences("User", Context.MODE_PRIVATE);
+
         btnStage11 = (Button)view.findViewById(R.id.btn_stage1_1);
         btnStage12 = (Button)view.findViewById(R.id.btn_stage1_2);
         btnStage13 = (Button)view.findViewById(R.id.btn_stage1_3);
@@ -47,6 +51,29 @@ public class StageFragment1 extends Fragment {
         final int selectSound = sp.load(view.getContext(), R.raw.stage_select,1);
         final int confirmSound = sp.load(view.getContext(), R.raw.stage_confirm,1);
         storyAlertBuilder = new AlertDialog.Builder(view.getContext(), R.style.StoryDialogTheme);
+
+        //Track player progression, must finish stages in order, each NEW stage increments progress by 1
+        //TODO: Multi-line comment on this section is to enable devs to test every stage, comment out when all stages and gameplay are complete
+        /*
+        if(prefs.contains("progress")){
+            if(prefs.getInt("progress",0) >= 1){
+                btnStage12.setEnabled(true);
+                btnStage12.setAlpha(1.0f);
+            }
+            else{
+                btnStage12.setEnabled(false);
+                btnStage12.setAlpha(0.5f);
+            }
+            if(prefs.getInt("progress",0) >= 2){
+                btnStage13.setEnabled(true);
+                btnStage13.setAlpha(1.0f);
+            }
+            else{
+                btnStage13.setEnabled(false);
+                btnStage13.setAlpha(0.5f);
+            }
+        }
+        */
 
         btnStage11.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +103,7 @@ public class StageFragment1 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 1-2");
-                storyAlertBuilder.setMessage("Display stage 1-2 story");
+                storyAlertBuilder.setMessage("After dispatching a group of frog monsters, your party sets up a quick camp nearby to take a break. You begin to wonder what is the real goal of this quest.\n\n\"Gosh, the quest only tells us to 'investigate a mystery to the north' and nothing else,\" Maria sighs.\n\n\"Well, guess the only way to find out is to continue travelling,\" Galter shrugs. \"Hope the reward will be worth our troubles.\"\n\nSuddenly, you hear screeching noises off in the distance. It appears to be growing closer to your party.");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -99,7 +126,7 @@ public class StageFragment1 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 1-3");
-                storyAlertBuilder.setMessage("Display stage 1-3 story");
+                storyAlertBuilder.setMessage("You let out a sigh of relief as the last of the plant monsters fall. However, this victory did not last long, a threatening roar echoes the forest shortly after the battle.\n\n\"That does not sound good at all...\" said Galter, with an increasingly worried look.\n\nMaria looks into the sky. \"Oh no, that's a dragon, it's heading this way!\" she exclaimed.\n\nYou ready your magical powers and shouted, \"Be careful everyone, it looks strong!\"");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
