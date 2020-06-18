@@ -86,7 +86,7 @@ public class StageFragment3 extends Fragment {
                         sp.play(confirmSound,1,1,1,0,1.0f);
                         //Pass Final Stage info to BattleActivity, including all 3 forms of final boss
                         Intent battleIntent = new Intent(getContext(), BattleActivity.class);
-                        battleIntent.putExtra("enemy3_sprite",R.drawable.stagefinal_boss2);
+                        battleIntent.putExtra("enemy3_sprite",R.drawable.stagefinal_boss3);
                         battleIntent.putExtra("enemy3_name","Lv.15 Dark Dragon Lord");
                         battleIntent.putExtra("battle_bg", R.drawable.stagefinal_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stagefinal_finalboss);
