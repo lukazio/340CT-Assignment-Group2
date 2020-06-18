@@ -1,7 +1,9 @@
 package com.example.mathrpg;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.SoundPool;
@@ -27,6 +29,7 @@ public class StageFragment3 extends Fragment {
     private AlertDialog.Builder storyAlertBuilder;
     private AlertDialog storyDialog;
     private SoundPool sp;
+    private SharedPreferences prefs;
 
     public StageFragment3() {
         // Required empty public constructor
@@ -36,6 +39,8 @@ public class StageFragment3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.stage_fragment3, container, false);
 
+        prefs = getContext().getSharedPreferences("User", Context.MODE_PRIVATE);
+
         btnStageFinal = (Button)view.findViewById(R.id.btn_stage_final);
         btnStageSecret = (Button)view.findViewById(R.id.btn_stage_secret);
         sp = new SoundPool.Builder().build();
@@ -44,19 +49,44 @@ public class StageFragment3 extends Fragment {
         final int confirmSound = sp.load(view.getContext(), R.raw.stage_confirm,1);
         storyAlertBuilder = new AlertDialog.Builder(view.getContext(), R.style.StoryDialogTheme);
 
+        //Track player progression, must finish stages in order, each NEW completed stage increments progress by 1
+        //TODO: Multi-line comment on this section is to enable devs to test every stage, comment out when all stages and gameplay are complete
+        /*
+        if(prefs.contains("progress")){
+            //Final stage
+            if(prefs.getInt("progress",0) >= 6){
+                btnStageFinal.setEnabled(true);
+                btnStageFinal.setAlpha(1.0f);
+            }
+            else{
+                btnStageFinal.setEnabled(false);
+                btnStageFinal.setAlpha(0.5f);
+            }
+            //Secret stage
+            if(prefs.getInt("progress",0) >= 7){
+                btnStageSecret.setEnabled(true);
+                btnStageSecret.setVisibility(View.VISIBLE);
+            }
+            else{
+                btnStageSecret.setEnabled(false);
+                btnStageSecret.setVisibility(View.INVISIBLE);
+            }
+        }
+        */
+
         btnStageFinal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Final Battle");
                 storyAlertBuilder.setMessage("Display final stage story");
-                storyAlertBuilder.setPositiveButton("Showtime!", new DialogInterface.OnClickListener() {
+                storyAlertBuilder.setPositiveButton("To Battle!", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         sp.play(confirmSound,1,1,1,0,1.0f);
-
+                        //Pass Final Stage info to BattleActivity, including all 3 forms of final boss
                         Intent battleIntent = new Intent(getContext(), BattleActivity.class);
-                        battleIntent.putExtra("enemy3_sprite",R.drawable.stage1_3_boss);
+                        battleIntent.putExtra("enemy3_sprite",R.drawable.stagefinal_boss2);
                         battleIntent.putExtra("enemy3_name","Lv.15 Dark Dragon Lord");
                         battleIntent.putExtra("battle_bg", R.drawable.stagefinal_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stagefinal_finalboss);
@@ -91,7 +121,7 @@ public class StageFragment3 extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 sp.play(confirmSound,1,1,1,0,1.0f);
-
+                                //Pass Secret Stage info to BattleActivity
                                 Intent battleIntent = new Intent(getContext(), BattleActivity.class);
                                 battleIntent.putExtra("enemy3_sprite",R.drawable.stagesecret_boss);
                                 battleIntent.putExtra("enemy3_name","Lv.20 Milos the Midnight Dancer");
@@ -116,8 +146,6 @@ public class StageFragment3 extends Fragment {
                 storyDialog.show();
             }
         });
-
-        //TODO: Hide secret stage button, display button if player account has completed all previous stages including final stage
 
         // Inflate the layout for this fragment
         return view;

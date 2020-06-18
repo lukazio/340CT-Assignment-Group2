@@ -21,7 +21,7 @@
             android:fontFamily="@font/medievalsharp"
             android:text="[LV] [Enemy Name]"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/iv_enemy"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -44,13 +44,11 @@
 
         <Button
             android:id="@+id/btn_pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:foreground="@drawable/ic_button_pause"
+            android:background="@android:color/holo_orange_dark"
             android:fontFamily="@font/medievalsharp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:text="Pause"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

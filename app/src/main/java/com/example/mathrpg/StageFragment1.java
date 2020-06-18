@@ -52,10 +52,11 @@ public class StageFragment1 extends Fragment {
         final int confirmSound = sp.load(view.getContext(), R.raw.stage_confirm,1);
         storyAlertBuilder = new AlertDialog.Builder(view.getContext(), R.style.StoryDialogTheme);
 
-        //Track player progression, must finish stages in order, each NEW stage increments progress by 1
+        //Track player progression, must finish stages in order, each NEW completed stage increments progress by 1
         //TODO: Multi-line comment on this section is to enable devs to test every stage, comment out when all stages and gameplay are complete
         /*
         if(prefs.contains("progress")){
+            //Stage 1-2
             if(prefs.getInt("progress",0) >= 1){
                 btnStage12.setEnabled(true);
                 btnStage12.setAlpha(1.0f);
@@ -64,6 +65,7 @@ public class StageFragment1 extends Fragment {
                 btnStage12.setEnabled(false);
                 btnStage12.setAlpha(0.5f);
             }
+            //Stage 1-3
             if(prefs.getInt("progress",0) >= 2){
                 btnStage13.setEnabled(true);
                 btnStage13.setAlpha(1.0f);
@@ -131,7 +133,7 @@ public class StageFragment1 extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         sp.play(confirmSound,1,1,1,0,1.0f);
-                        //Testing pass enemy info to BattleActivity
+                        //Pass Stage 1-3 info to BattleActivity
                         Intent battleIntent = new Intent(getContext(), BattleActivity.class);
                         battleIntent.putExtra("enemy3_sprite",R.drawable.stage1_3_boss);
                         battleIntent.putExtra("enemy3_name","Lv.5 Forest Dragon");

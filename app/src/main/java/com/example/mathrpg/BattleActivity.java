@@ -103,26 +103,30 @@ public class BattleActivity extends AppCompatActivity {
         btnPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mp.pause();
-                pauseAlertBuilder.setTitle("Pause");
-                pauseAlertBuilder.setCancelable(false);
-                pauseAlertBuilder.setPositiveButton("Resume", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        mp.start();
-                    }
-                });
-                pauseAlertBuilder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        BattleActivity.this.finish();
-                    }
-                });
-                pauseDialog = pauseAlertBuilder.create();
-                Objects.requireNonNull(pauseDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E2C00")));
-                pauseDialog.show();
+                if(getIntent().getIntExtra("enemy3_sprite",0) == R.drawable.stagesecret_boss)
+                    Toast.makeText(BattleActivity.this, "THERE IS N̷̜̭̙͐Ö̶̮̲́ ̴̳̗̖͇̞͛̈́Ȩ̶̧̳͙̑͂S̷̤̰̩̎̍̾C̴̭̥͖͘Ą̸͎̹̲̔͂̕̚ͅP̴̖͋̓̌E̵̪̥̫͗̋̎̒", Toast.LENGTH_SHORT).show();
+                else
+                    showPauseMenu();
             }
         });
+    }
+
+    public void showPauseMenu() {
+        pauseAlertBuilder.setTitle("Pause");
+        pauseAlertBuilder.setPositiveButton("Resume", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        pauseAlertBuilder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                BattleActivity.super.onBackPressed();
+            }
+        });
+        pauseDialog = pauseAlertBuilder.create();
+        Objects.requireNonNull(pauseDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E2C00")));
+        pauseDialog.show();
     }
 
     @Override
@@ -132,8 +136,7 @@ public class BattleActivity extends AppCompatActivity {
             Toast.makeText(this, "THERE IS N̷̜̭̙͐Ö̶̮̲́ ̴̳̗̖͇̞͛̈́Ȩ̶̧̳͙̑͂S̷̤̰̩̎̍̾C̴̭̥͖͘Ą̸͎̹̲̔͂̕̚ͅP̴̖͋̓̌E̵̪̥̫͗̋̎̒", Toast.LENGTH_SHORT).show();
         }
         else{
-            //TODO: To bring up pause menu instead of finishing activity, pressing Back again while pause menu is open will just resume battle
-            super.onBackPressed();
+            showPauseMenu();
         }
     }
 

@@ -1,7 +1,9 @@
 package com.example.mathrpg;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.SoundPool;
@@ -26,6 +28,7 @@ public class StageFragment2 extends Fragment {
     private AlertDialog.Builder storyAlertBuilder;
     private AlertDialog storyDialog;
     private SoundPool sp;
+    private SharedPreferences prefs;
 
     public StageFragment2() {
         // Required empty public constructor
@@ -34,6 +37,8 @@ public class StageFragment2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.stage_fragment2, container, false);
+
+        prefs = getContext().getSharedPreferences("User", Context.MODE_PRIVATE);
 
         btnStage21 = (Button)view.findViewById(R.id.btn_stage2_1);
         btnStage22 = (Button)view.findViewById(R.id.btn_stage2_2);
@@ -44,12 +49,47 @@ public class StageFragment2 extends Fragment {
         final int confirmSound = sp.load(view.getContext(), R.raw.stage_confirm,1);
         storyAlertBuilder = new AlertDialog.Builder(view.getContext(), R.style.StoryDialogTheme);
 
+        //Track player progression, must finish stages in order, each NEW completed stage increments progress by 1
+        //TODO: Multi-line comment on this section is to enable devs to test every stage, comment out when all stages and gameplay are complete
+        /*
+        if(prefs.contains("progress")){
+            //Stage 2-1
+            if(prefs.getInt("progress",0) >= 3){
+                btnStage21.setEnabled(true);
+                btnStage21.setAlpha(1.0f);
+            }
+            else{
+                btnStage21.setEnabled(false);
+                btnStage21.setAlpha(0.5f);
+            }
+            //Stage 2-2
+            if(prefs.getInt("progress",0) >= 4){
+                btnStage22.setEnabled(true);
+                btnStage22.setAlpha(1.0f);
+            }
+            else{
+                btnStage22.setEnabled(false);
+                btnStage22.setAlpha(0.5f);
+            }
+            //Stage 2-3
+            if(prefs.getInt("progress",0) >= 5){
+                btnStage23.setEnabled(true);
+                btnStage23.setAlpha(1.0f);
+            }
+            else{
+                btnStage23.setEnabled(false);
+                btnStage23.setAlpha(0.5f);
+            }
+        }
+        */
+
+
         btnStage21.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 2-1");
-                storyAlertBuilder.setMessage("Display stage 2-1 story");
+                storyAlertBuilder.setMessage("\"I may be defeated, but soon humanity will end,\" the forest dragon growled as it spews mist throughout the battlefield.\n\nIn just mere moments, the dragon is nowhere to be seen. The forest falls into an eerie silence.\n\n\"Dang, it got away!\" You said in disappointment as you scan your surroundings. \"No use complaining, let's keep pushing forward.\"\n\nYour party continues north and soon reaches the ice forest. However, it seems that the creatures there are not welcoming to travellers.\n\n\"Heads up everyone, ice monsters!\" Galter warns.");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -72,7 +112,7 @@ public class StageFragment2 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 2-2");
-                storyAlertBuilder.setMessage("Display stage 2-2 story");
+                storyAlertBuilder.setMessage("As your party continues further north through the icy forest, you all eventually reach the frozen sea.\n\n\"Time to put this spell to good use!\" Maria says as she conjures up a boat that is able to glide through the ice.\n\n\"Nice, your spells can be really useful at times, Maria.\" Galter acknowledges. \"But it's too bad that journeys will never be smooth sailing these days.\"\n\nA group of shark monsters can be seen swimming rapidly towards your party in the distance, brandishing weapons.");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -95,11 +135,18 @@ public class StageFragment2 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 2-3");
-                storyAlertBuilder.setMessage("Display stage 2-3 story");
+                storyAlertBuilder.setMessage("Your party has beaten the shark monsters and continued sailing further north throughout the night. At the next day, your group has reached a small mysterious island with an eerie atmosphere. The three of you decided to split up and search your surroundings.\n\n\"Guys come here, I found something!\" Marie called out. \"This doesn't look good!\"\n\nYou and Galter hurried over to Marie's direction, a tall black portal with ancient carvings was at the site of her location.\n\n\"I assume this is what we have to investigate for the quest, it sure looks mysterious enough,\" Galter says.\n\nSuddenly, the ground trembles and the portal lights up, a red dragon with a threatening glare appears out of the portal.\n\nYou warn the others, \"Be cautious everyone, it looks dangerous!\"");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         sp.play(confirmSound,1,1,1,0,1.0f);
+                        //Pass Stage 2-3 info to BattleActivity
+                        Intent battleIntent = new Intent(getContext(), BattleActivity.class);
+                        battleIntent.putExtra("enemy3_sprite",R.drawable.stage2_3_boss);
+                        battleIntent.putExtra("enemy3_name","Lv.10 Dragon Warlord");
+                        battleIntent.putExtra("battle_bg", R.drawable.stage2_battle_bg);
+                        battleIntent.putExtra("battle_music", R.raw.bgm_stage2_finalboss);
+                        startActivity(battleIntent);
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
