@@ -82,7 +82,7 @@ public class StageFragment1 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 1-1");
-                storyAlertBuilder.setMessage("You are a leader of a small adventuring group which consists of yourself, a magician, and your two close friends, Galter the knight and Maria the cleric. Your group has accepted an unnamed quest at the guild, which is to investigate a mystery in the neighbouring land.\n\n\"Let's go, friends! This way to the gate of Graycott Town and into the forest we go!\" You said as you merrily march towards the exit.\n\nA journey awaits you with unexpected events in the vast open world.");
+                storyAlertBuilder.setMessage("You are a leader of a small adventuring group which consists of yourself, a magician, and your two close friends, Galter the knight and Maria the cleric. Your group accepts an unnamed quest at the guild, which is to investigate a mystery in the neighbouring land.\n\n\"Let's go, friends! This way to the gate of Graycott Town and into the forest we go!\" You say as you merrily march towards the exit.\n\nA journey awaits you with unexpected events in the vast open world.");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -128,7 +128,7 @@ public class StageFragment1 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 1-3");
-                storyAlertBuilder.setMessage("You let out a sigh of relief as the last of the plant monsters fall. However, this victory did not last long, a threatening roar echoes the forest shortly after the battle.\n\n\"That does not sound good at all...\" said Galter, with an increasingly worried look.\n\nMaria looks into the sky. \"Oh no, that's a dragon, it's heading this way!\" she exclaimed.\n\nYou ready your magical powers and shouted, \"Be careful everyone, it looks strong!\"");
+                storyAlertBuilder.setMessage("You let out a sigh of relief as the last of the plant monsters fall. However, this victory did not last long, a threatening roar echoes the forest shortly after the battle.\n\n\"That does not sound good at all...\" Galter says, with an increasingly worried look.\n\nMaria looks into the sky. \"Oh no, that's a dragon, it's heading this way!\" She exclaims.\n\nYou ready your magical powers and shout, \"Be careful everyone, it looks strong!\"");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
