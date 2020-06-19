@@ -89,7 +89,7 @@ public class StageFragment2 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 2-1");
-                storyAlertBuilder.setMessage("\"I may be defeated, but humanity will soon end,\" the injured dragon growls as it spews mist throughout the battlefield.\n\nIn just mere moments, the dragon is nowhere to be seen. The forest quickly falls into an eerie silence.\n\n\"Dang, it got away!\" You curse as you scan your surroundings. \"No use complaining, let's keep pushing forward.\"\n\nYour party continues north and soon reaches the icy forest. However, it seems that the creatures there are not welcoming to travellers.\n\n\"Heads up everyone, beware of the ice monsters,\" Galter warns.");
+                storyAlertBuilder.setMessage("\"I may be defeated, but humanity will soon end,\" the injured dragon growls as it spews mist throughout the battlefield.\n\nIn just mere moments, the dragon is nowhere to be seen. The forest quickly falls into an eerie silence.\n\n\"Dang, it got away!\" You curse as you scan your surroundings. \"No use complaining, let's keep pushing forward.\"\n\nYour party continues north and soon reaches the icy forest. However, it seems the creatures there are not welcoming to travellers.\n\n\"Heads up everyone, beware of the ice monsters,\" Galter warns.");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

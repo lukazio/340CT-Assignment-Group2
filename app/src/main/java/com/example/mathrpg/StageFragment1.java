@@ -128,7 +128,7 @@ public class StageFragment1 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 1-3");
-                storyAlertBuilder.setMessage("You let out a sigh of relief as the last of the plant monsters fall. However, this victory did not last long, a threatening roar echoes the forest shortly after the battle.\n\n\"That does not sound good at all...\" Galter says, with an increasingly worried look.\n\nMaria looks into the sky. \"Oh no, that's a dragon, it's heading this way!\" She exclaims.\n\nYou ready your magical powers and shout, \"Be careful everyone, it looks strong!\"");
+                storyAlertBuilder.setMessage("You let out a sigh of relief as the last of the plant monsters fall. However, the victory was short-lived, a threatening roar echoes the forest shortly after the battle.\n\n\"That does not sound good...\" Galter says, with an increasingly worried look.\n\nMaria looks to the sky. \"Oh no, that's a dragon, it's heading this way!\" She exclaims.\n\nYou ready your magical powers and shout, \"Be careful everyone, it looks strong!\"");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
