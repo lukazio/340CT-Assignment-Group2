@@ -89,7 +89,7 @@ public class StageFragment2 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 2-1");
-                storyAlertBuilder.setMessage("\"I may be defeated, but humanity will soon end,\" the forest dragon growls as it spews mist throughout the battlefield.\n\nIn just mere moments, the dragon is nowhere to be seen. The forest quickly falls into an eerie silence.\n\n\"Dang, it got away!\" You curse as you scan your surroundings. \"No use complaining, let's keep pushing forward.\"\n\nYour party continues north and soon reaches the icy forest. However, it seems that the creatures there are not welcoming to travellers.\n\n\"Heads up everyone, beware of the ice monsters,\" Galter warns.");
+                storyAlertBuilder.setMessage("\"I may be defeated, but humanity will soon end,\" the injured dragon growls as it spews mist throughout the battlefield.\n\nIn just mere moments, the dragon is nowhere to be seen. The forest quickly falls into an eerie silence.\n\n\"Dang, it got away!\" You curse as you scan your surroundings. \"No use complaining, let's keep pushing forward.\"\n\nYour party continues north and soon reaches the icy forest. However, it seems that the creatures there are not welcoming to travellers.\n\n\"Heads up everyone, beware of the ice monsters,\" Galter warns.");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -112,7 +112,7 @@ public class StageFragment2 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 2-2");
-                storyAlertBuilder.setMessage("As your party ventures further north through the icy forest, you eventually reach the frozen sea.\n\n\"Time to put this spell to good use!\" Maria says as she conjures up a boat that is able to glide through the ice.\n\n\"Nice, your spells can be really useful at times, Maria.\" Galter acknowledges. \"But it's too bad that journeys will never be smooth sailing these days.\"\n\nShark monsters suddenly burst through the ice around your party, brandishing weapons.");
+                storyAlertBuilder.setMessage("As your party ventures further north through the icy forest, you eventually reach the frozen sea.\n\n\"Time to put this spell to good use!\" Maria says as she conjures up a boat that is able to glide through the ice.\n\n\"Nice, your spells can be really useful at times, Maria.\" Galter acknowledges. \"But it's too bad that journeys will never be smooth sailing these days.\"\n\nShark monsters suddenly erupt through the ice around your party, brandishing weapons.");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -135,7 +135,7 @@ public class StageFragment2 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 2-3");
-                storyAlertBuilder.setMessage("Your party has beaten the shark monsters and resumes sailing further north throughout the night. The next day, your group reaches a small mysterious island with an eerie atmosphere. The three of you decide to split up and search your surroundings.\n\n\"Guys come here, I found something!\" Marie called out. \"This doesn't look good!\"\n\nYou and Galter hurry over towards her direction, she points at a tall black portal with ancient carvings.\n\n\"I assume this is what we have to investigate for the quest, it sure looks mysterious enough,\" Galter says.\n\nSuddenly, the ground trembles and the portal lights up, a red dragon with a threatening glare climbs out of the portal.\n\nYou alarm the others, \"Be cautious everyone, it looks dangerous!\"");
+                storyAlertBuilder.setMessage("Your party has beaten the shark monsters and resumes sailing further north throughout the night. The next day, your group reaches a small mysterious island with an eerie atmosphere. The three of you decide to split up and search your surroundings.\n\n\"Guys come here, I found something!\" Marie calls out. \"This doesn't look good!\"\n\nYou and Galter hurry over towards her direction, she points at a tall black portal with ancient carvings.\n\n\"I assume this is what we have to investigate for the quest, it sure looks mysterious enough,\" Galter says.\n\nSuddenly, the ground trembles and the portal lights up, a red dragon with a threatening glare emerges from the portal.\n\nYou alarm the others, \"Be cautious everyone, it looks dangerous!\"");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
