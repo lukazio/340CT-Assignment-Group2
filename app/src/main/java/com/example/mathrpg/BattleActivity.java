@@ -3,6 +3,7 @@ package com.example.mathrpg;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.Guideline;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -25,7 +26,7 @@ import java.util.Objects;
 public class BattleActivity extends AppCompatActivity {
 
     private ConstraintLayout clBgStage;
-    private TextView tvEnemyName,tvQuestion,tvTimer;
+    private TextView tvEnemyName,tvQuestion,tvTimer,tvBarHpValue;
     private ImageView ivEnemy;
     private SharedPreferences prefs;
     private MediaPlayer mp;
@@ -33,6 +34,10 @@ public class BattleActivity extends AppCompatActivity {
     private Button btnPause;
     private AlertDialog.Builder pauseAlertBuilder;
     private AlertDialog pauseDialog;
+    private Guideline hpGuideline;
+
+    //Battle variables (player's current HP, monster stats, stage EXP etc.)
+    private int currentHp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +50,24 @@ public class BattleActivity extends AppCompatActivity {
         tvEnemyName = (TextView)findViewById(R.id.tv_enemy_name);
         tvQuestion = (TextView)findViewById(R.id.tv_question);
         tvTimer = (TextView)findViewById(R.id.tv_timer);
+        tvBarHpValue = (TextView)findViewById(R.id.tv_bar_hp_value);
         ivEnemy = (ImageView)findViewById(R.id.iv_enemy);
         btnPause=(Button)findViewById(R.id.btn_pause);
+        hpGuideline = (Guideline)findViewById(R.id.guideline_hp);
+
+        //Set battle variables (player's current HP, monster stats, stage EXP etc.)
+        currentHp = prefs.getInt("hp",1);
+        tvBarHpValue.setText(currentHp + " / " + prefs.getInt("hp",1));
+
+        //TODO: Test for HP bar reduction when player takes damage, remove when gameplay is implemented (don't remove updateHealthBar method as it will be used in gameplay)
+        Button btnTestDamage = (Button)findViewById(R.id.btn_test_damage);
+        btnTestDamage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentHp -= 1;
+                updatePlayerHealthBar();
+            }
+        });
 
         sp = new SoundPool.Builder().setMaxStreams(5).build();
         final int selectSound = sp.load(this, R.raw.stage_select,1);
@@ -127,6 +148,14 @@ public class BattleActivity extends AppCompatActivity {
         pauseDialog = pauseAlertBuilder.create();
         Objects.requireNonNull(pauseDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E2C00")));
         pauseDialog.show();
+    }
+
+    public void updatePlayerHealthBar(){
+        if(currentHp < 0)
+            currentHp = 0;
+
+        hpGuideline.setGuidelinePercent((float)currentHp/prefs.getInt("hp",1));
+        tvBarHpValue.setText(currentHp + " / " + prefs.getInt("hp",1));
     }
 
     @Override
