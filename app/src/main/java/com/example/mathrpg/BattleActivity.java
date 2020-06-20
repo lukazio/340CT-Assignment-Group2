@@ -37,7 +37,7 @@ public class BattleActivity extends AppCompatActivity {
     private Guideline hpGuideline;
 
     //Battle variables (player's current HP, monster stats, stage EXP etc.)
-    private int currentHp;
+    private int currentHp,maxHp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +56,8 @@ public class BattleActivity extends AppCompatActivity {
         hpGuideline = (Guideline)findViewById(R.id.guideline_hp);
 
         //Set battle variables (player's current HP, monster stats, stage EXP etc.)
-        currentHp = prefs.getInt("hp",1);
-        tvBarHpValue.setText(currentHp + " / " + prefs.getInt("hp",1));
+        currentHp = maxHp = prefs.getInt("hp",1);
+        tvBarHpValue.setText(currentHp + " / " + maxHp);
 
         //TODO: Test for HP bar reduction when player takes damage, remove when gameplay is implemented (don't remove updateHealthBar method as it will be used in gameplay)
         Button btnTestDamage = (Button)findViewById(R.id.btn_test_damage);
@@ -154,8 +154,8 @@ public class BattleActivity extends AppCompatActivity {
         if(currentHp < 0)
             currentHp = 0;
 
-        hpGuideline.setGuidelinePercent((float)currentHp/prefs.getInt("hp",1));
-        tvBarHpValue.setText(currentHp + " / " + prefs.getInt("hp",1));
+        hpGuideline.setGuidelinePercent((float)currentHp/maxHp);
+        tvBarHpValue.setText(currentHp + " / " + maxHp);
     }
 
     @Override
