@@ -26,7 +26,7 @@ import java.util.Objects;
 public class BattleActivity extends AppCompatActivity {
 
     private ConstraintLayout clBgStage;
-    private TextView tvEnemyName,tvQuestion,tvTimer,tvBarHpValue;
+    private TextView tvEnemyName,tvQuestion,tvTimer,tvBarHpValue,hpBar;
     private ImageView ivEnemy;
     private SharedPreferences prefs;
     private MediaPlayer mp;
@@ -51,13 +51,14 @@ public class BattleActivity extends AppCompatActivity {
         tvQuestion = (TextView)findViewById(R.id.tv_question);
         tvTimer = (TextView)findViewById(R.id.tv_timer);
         tvBarHpValue = (TextView)findViewById(R.id.tv_bar_hp_value);
+        hpBar = (TextView)findViewById(R.id.hp_bar);
         ivEnemy = (ImageView)findViewById(R.id.iv_enemy);
         btnPause=(Button)findViewById(R.id.btn_pause);
         hpGuideline = (Guideline)findViewById(R.id.guideline_hp);
 
         //Set battle variables (player's current HP, monster stats, stage EXP etc.)
         currentHp = maxHp = prefs.getInt("hp",1);
-        tvBarHpValue.setText(currentHp + " / " + maxHp);
+        updatePlayerHealthBar();
 
         //TODO: Test for HP bar reduction when player takes damage, remove when gameplay is implemented (don't remove updateHealthBar method as it will be used in gameplay)
         Button btnTestDamage = (Button)findViewById(R.id.btn_test_damage);
@@ -153,6 +154,13 @@ public class BattleActivity extends AppCompatActivity {
     public void updatePlayerHealthBar(){
         if(currentHp < 0)
             currentHp = 0;
+
+        if((float)currentHp/maxHp <= 0.25)
+            hpBar.setBackgroundColor(Color.parseColor("#E53935"));
+        else if((float)currentHp/maxHp > 0.25 && (float)currentHp/maxHp <= 0.5)
+            hpBar.setBackgroundColor(Color.parseColor("#FBC02D"));
+        else
+            hpBar.setBackgroundColor(Color.parseColor("#43A047"));
 
         hpGuideline.setGuidelinePercent((float)currentHp/maxHp);
         tvBarHpValue.setText(currentHp + " / " + maxHp);
