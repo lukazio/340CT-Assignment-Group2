@@ -50,38 +50,37 @@ public class StageFragment2 extends Fragment {
         storyAlertBuilder = new AlertDialog.Builder(view.getContext(), R.style.StoryDialogTheme);
 
         //Track player progression, must finish stages in order, each NEW completed stage increments progress by 1
-        //TODO: Multi-line comment on this section is to enable devs to test every stage, comment out when all stages and gameplay are complete
-        /*
-        if(prefs.contains("progress")){
-            //Stage 2-1
-            if(prefs.getInt("progress",0) >= 3){
-                btnStage21.setEnabled(true);
-                btnStage21.setAlpha(1.0f);
-            }
-            else{
-                btnStage21.setEnabled(false);
-                btnStage21.setAlpha(0.5f);
-            }
-            //Stage 2-2
-            if(prefs.getInt("progress",0) >= 4){
-                btnStage22.setEnabled(true);
-                btnStage22.setAlpha(1.0f);
-            }
-            else{
-                btnStage22.setEnabled(false);
-                btnStage22.setAlpha(0.5f);
-            }
-            //Stage 2-3
-            if(prefs.getInt("progress",0) >= 5){
-                btnStage23.setEnabled(true);
-                btnStage23.setAlpha(1.0f);
-            }
-            else{
-                btnStage23.setEnabled(false);
-                btnStage23.setAlpha(0.5f);
+        if(!(prefs.getString("name","404").contentEquals("admin") && DebugGame.isAllStages())){
+            if(prefs.contains("progress")){
+                //Stage 2-1
+                if(prefs.getInt("progress",0) >= 3){
+                    btnStage21.setEnabled(true);
+                    btnStage21.setAlpha(1.0f);
+                }
+                else{
+                    btnStage21.setEnabled(false);
+                    btnStage21.setAlpha(0.5f);
+                }
+                //Stage 2-2
+                if(prefs.getInt("progress",0) >= 4){
+                    btnStage22.setEnabled(true);
+                    btnStage22.setAlpha(1.0f);
+                }
+                else{
+                    btnStage22.setEnabled(false);
+                    btnStage22.setAlpha(0.5f);
+                }
+                //Stage 2-3
+                if(prefs.getInt("progress",0) >= 5){
+                    btnStage23.setEnabled(true);
+                    btnStage23.setAlpha(1.0f);
+                }
+                else{
+                    btnStage23.setEnabled(false);
+                    btnStage23.setAlpha(0.5f);
+                }
             }
         }
-        */
 
 
         btnStage21.setOnClickListener(new View.OnClickListener() {

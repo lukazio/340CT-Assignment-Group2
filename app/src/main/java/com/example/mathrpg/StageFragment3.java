@@ -50,29 +50,28 @@ public class StageFragment3 extends Fragment {
         storyAlertBuilder = new AlertDialog.Builder(view.getContext(), R.style.StoryDialogTheme);
 
         //Track player progression, must finish stages in order, each NEW completed stage increments progress by 1
-        //TODO: Multi-line comment on this section is to enable devs to test every stage, comment out when all stages and gameplay are complete
-        /*
-        if(prefs.contains("progress")){
-            //Final stage
-            if(prefs.getInt("progress",0) >= 6){
-                btnStageFinal.setEnabled(true);
-                btnStageFinal.setAlpha(1.0f);
-            }
-            else{
-                btnStageFinal.setEnabled(false);
-                btnStageFinal.setAlpha(0.5f);
-            }
-            //Secret stage
-            if(prefs.getInt("progress",0) >= 7){
-                btnStageSecret.setEnabled(true);
-                btnStageSecret.setVisibility(View.VISIBLE);
-            }
-            else{
-                btnStageSecret.setEnabled(false);
-                btnStageSecret.setVisibility(View.INVISIBLE);
+        if(!(prefs.getString("name","404").contentEquals("admin") && DebugGame.isAllStages())){
+            if(prefs.contains("progress")){
+                //Final stage
+                if(prefs.getInt("progress",0) >= 6){
+                    btnStageFinal.setEnabled(true);
+                    btnStageFinal.setAlpha(1.0f);
+                }
+                else{
+                    btnStageFinal.setEnabled(false);
+                    btnStageFinal.setAlpha(0.5f);
+                }
+                //Secret stage
+                if(prefs.getInt("progress",0) >= 7){
+                    btnStageSecret.setEnabled(true);
+                    btnStageSecret.setVisibility(View.VISIBLE);
+                }
+                else{
+                    btnStageSecret.setEnabled(false);
+                    btnStageSecret.setVisibility(View.INVISIBLE);
+                }
             }
         }
-        */
 
         btnStageFinal.setOnClickListener(new View.OnClickListener() {
             @Override

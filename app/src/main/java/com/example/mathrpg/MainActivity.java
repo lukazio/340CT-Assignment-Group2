@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button Mbtn_help,btnStage,btnLogin,btnLogout;
+    private Button Mbtn_help,btnStage,btnLogin,btnLogout,btnDebug;
     private AudioAttributes attrs;
     private SoundPool sp;
     private SharedPreferences prefs;
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         btnStage = (Button)findViewById(R.id.btn_stage);
         btnLogin = (Button)findViewById(R.id.btn_login);
         btnLogout = (Button)findViewById(R.id.btn_logout);
+        btnDebug = (Button)findViewById(R.id.btn_debug);
 
         if(prefs.contains("name")){
             btnLogout.setVisibility(View.VISIBLE);
@@ -58,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
             btnStage.setEnabled(false);
             btnStage.setAlpha(0.5f);
         }
+
+        if(prefs.getString("name","404").contentEquals("admin"))
+            btnDebug.setVisibility(View.VISIBLE);
+        else
+            btnDebug.setVisibility(View.INVISIBLE);
 
         Mbtn_help.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +119,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 logoutAlert.show();
+            }
+        });
+
+        btnDebug.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,DebugActivity.class);
+                startActivity(intent);
             }
         });
     }

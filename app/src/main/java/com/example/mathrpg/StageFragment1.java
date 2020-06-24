@@ -53,29 +53,28 @@ public class StageFragment1 extends Fragment {
         storyAlertBuilder = new AlertDialog.Builder(view.getContext(), R.style.StoryDialogTheme);
 
         //Track player progression, must finish stages in order, each NEW completed stage increments progress by 1
-        //TODO: Multi-line comment on this section is to enable devs to test every stage, comment out when all stages and gameplay are complete
-        /*
-        if(prefs.contains("progress")){
-            //Stage 1-2
-            if(prefs.getInt("progress",0) >= 1){
-                btnStage12.setEnabled(true);
-                btnStage12.setAlpha(1.0f);
-            }
-            else{
-                btnStage12.setEnabled(false);
-                btnStage12.setAlpha(0.5f);
-            }
-            //Stage 1-3
-            if(prefs.getInt("progress",0) >= 2){
-                btnStage13.setEnabled(true);
-                btnStage13.setAlpha(1.0f);
-            }
-            else{
-                btnStage13.setEnabled(false);
-                btnStage13.setAlpha(0.5f);
+        if(!(prefs.getString("name","404").contentEquals("admin") && DebugGame.isAllStages())){
+            if(prefs.contains("progress")){
+                //Stage 1-2
+                if(prefs.getInt("progress",0) >= 1){
+                    btnStage12.setEnabled(true);
+                    btnStage12.setAlpha(1.0f);
+                }
+                else{
+                    btnStage12.setEnabled(false);
+                    btnStage12.setAlpha(0.5f);
+                }
+                //Stage 1-3
+                if(prefs.getInt("progress",0) >= 2){
+                    btnStage13.setEnabled(true);
+                    btnStage13.setAlpha(1.0f);
+                }
+                else{
+                    btnStage13.setEnabled(false);
+                    btnStage13.setAlpha(0.5f);
+                }
             }
         }
-        */
 
         btnStage11.setOnClickListener(new View.OnClickListener() {
             @Override
