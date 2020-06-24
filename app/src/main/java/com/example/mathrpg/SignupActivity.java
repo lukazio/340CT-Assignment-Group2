@@ -133,6 +133,7 @@ public class SignupActivity extends AppCompatActivity {
                         data.put("name", username);
                         data.put("email", email);
                         data.put("gender", gender);
+                        data.put("hp", 10);
                         data.put("level", 1);
                         data.put("attack", 3);
                         data.put("defense", 3);
