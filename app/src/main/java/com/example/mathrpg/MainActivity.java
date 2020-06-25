@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button Mbtn_help,btnStage,btnLogin,btnLogout,btnDebug;
+    private Button Mbtn_help,btnStage,btnLogin,btnLogout,btnAbout,btnDebug;
     private AudioAttributes attrs;
     private SoundPool sp;
     private SharedPreferences prefs;
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         btnStage = (Button)findViewById(R.id.btn_stage);
         btnLogin = (Button)findViewById(R.id.btn_login);
         btnLogout = (Button)findViewById(R.id.btn_logout);
+        btnAbout = (Button)findViewById(R.id.btn_about);
         btnDebug = (Button)findViewById(R.id.btn_debug);
 
         if(prefs.contains("name")){
@@ -119,6 +120,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 logoutAlert.show();
+            }
+        });
+        btnAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sp.play(btnSound,1,1,1,0,1.0f);
+                Intent intent = new Intent(MainActivity.this,AboutActivity.class);
+                startActivity(intent);
             }
         });
 

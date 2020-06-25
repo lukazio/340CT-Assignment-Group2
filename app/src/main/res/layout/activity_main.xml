@@ -48,6 +48,19 @@
         app:layout_constraintVertical_bias="0.616" />
 
     <Button
+        android:id="@+id/btn_about"
+        android:layout_width="85dp"
+        android:layout_height="45dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/medievalsharp"
+        android:text="about"
+        android:textAllCaps="true"
+        android:textColor="#8B0000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/btn_stage"
         android:layout_width="151dp"
         android:layout_height="73dp"
@@ -71,8 +84,9 @@
         android:text="MathRPG"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_stage"
+        app:layout_constraintBottom_toTopOf="@+id/guideline11"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -80,8 +94,8 @@
         android:id="@+id/imageView2"
         android:layout_width="198dp"
         android:layout_height="267dp"
-        android:adjustViewBounds="true"
         android:layout_marginTop="36dp"
+        android:adjustViewBounds="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,6 +135,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
@@ -133,5 +148,12 @@
         android:text="Debug"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_help" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
