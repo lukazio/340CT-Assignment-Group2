@@ -107,7 +107,7 @@ public class StageFragment3 extends Fragment {
             @Override
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
-                if(prefs.getInt("level",1) >= 20 || DebugGame.isSecretUnlocked()){
+                if(prefs.getInt("level",1) >= 20 || (DebugGame.isSecretUnlocked() && prefs.getString("name","404").contentEquals("admin"))){
                     storyAlertBuilder.setTitle("?????");
                     storyAlertBuilder.setMessage("Your party gets sucked into a strange portal that appears out of nowhere. A menacing man appears out of thin air and slowly approaches you.\n\n\"HUH? WHAT JUST HAPPENED?? WHERE ARE WE???\"\n\n\"Oh no, is that...? OH GOD OH NO OH SH-\"");
                     storyAlertBuilder.setPositiveButton("Explore?", new DialogInterface.OnClickListener() {
