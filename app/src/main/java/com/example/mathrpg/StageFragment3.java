@@ -107,42 +107,51 @@ public class StageFragment3 extends Fragment {
             @Override
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
-                storyAlertBuilder.setTitle("?????");
-                storyAlertBuilder.setMessage("Your party gets sucked into a strange portal that appears out of nowhere. A menacing man appears out of thin air and slowly approaches you.\n\n\"HUH? WHAT JUST HAPPENED?? WHERE ARE WE???\"\n\n\"Oh no, is that...? OH GOD OH NO OH SH-\"");
-                storyAlertBuilder.setPositiveButton("Explore?", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        AlertDialog.Builder secretAlertBuilder = new AlertDialog.Builder(Objects.requireNonNull(getContext()), R.style.StoryDialogTheme);
-                        secretAlertBuilder.setTitle("E̸̳̣͙͆͑̎̀͘R̶͍̹͌̿̈́̿͐̈R̸̢̲̬̹̞̹̼̃̔͗͋O̸̪͈͍͇̫̖͎̠̐R̶̨̪̰̰̪̘̾̓_̸̱̙͉̈́̔͜Ç̶̢͉̠̱̘̅̕ͅO̶̧̲̩͍͔̙̖̍͌̽̐̔̄̎ͅD̷̢̮̤̘̖̖̫̃̋͗E̸̠̱̐͒͂̚͘");
-                        secretAlertBuilder.setMessage("[i̸-̴i̷-̷i̵N̸c̶o̷M̶i̷N̷G̸]> V̶̤̣͈̠͒̂̒͝ḯ̴̧̨͓̈́̓̔͜ͅ ̴̭͍̯̋̇̔̆̚ş̸͙̣̣̉̀ì̶̬̲͇̩͛͆ţ̸̙̪͓̺͋͛͘t̶̢̝̺͙̿̂͛͗e̴̫̹̻̝̋̋̓̇̈́͜r̸̩̾̀̑͠ ̵͙̈́̈́̈h̵̲̙̄͘ä̶͔̗̹̙̈́̏̈́̄r̷͕̺̭̈́́͝͠ ̷̛͔͌̀̄̊i̶̖̗͈͙͂̔̿ ̷̨̮͕̮́̐̄͒V̴̲̥͈͍̌̍̚͝é̸̖̙n̶̨̼̖̞̐͋̄̿̾t̶̨̊̌͑̇̈͜e̸̗͓̭͂̕͜n̶̠͉̫̜̻̄̃̏̈");
-                        secretAlertBuilder.setCancelable(false);
-                        secretAlertBuilder.setPositiveButton("OH NO", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                sp.play(confirmSound,1,1,1,0,1.0f);
-                                //Pass Secret Stage info to BattleActivity
-                                Intent battleIntent = new Intent(getContext(), BattleActivity.class);
-                                battleIntent.putExtra("enemy3_sprite",R.drawable.stagesecret_boss);
-                                battleIntent.putExtra("enemy3_name","Lv.20 Milos the Midnight Dancer");
-                                battleIntent.putExtra("battle_bg", R.drawable.stagesecret_battle_bg);
-                                battleIntent.putExtra("battle_music", R.raw.bgm_stagesecret_finalboss);
-                                Toast.makeText(getContext(),"[WARNING] MAXIMUM LEVEL D-D-DANGER THERE IS N̴͖̺͈̑́͗̒͠-̷̡̘͕̻̓̇̄N̸̲͑̋̂̅Ȍ̷͇͕̬̀̂͒ ̵̦͊̆͗Ë̷̢̛̪̹͕́̄͘S̶͙͖͓͍̓̍͘͘C̴̘̅̊A̶̪͊P̸̯̝̖̀̓E̷͚͓̭̺̹̒̄̑", Toast.LENGTH_LONG).show();
-                                startActivity(battleIntent);
-                            }
-                        });
-                        storyDialog = secretAlertBuilder.create();
-                        Objects.requireNonNull(storyDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
-                        storyDialog.show();
-                    }
-                });
-                storyAlertBuilder.setNegativeButton("Turn Back", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                });
-                storyDialog = storyAlertBuilder.create();
-                Objects.requireNonNull(storyDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E2C00")));
-                storyDialog.show();
+                if(prefs.getInt("level",1) >= 20 || DebugGame.isSecretUnlocked()){
+                    storyAlertBuilder.setTitle("?????");
+                    storyAlertBuilder.setMessage("Your party gets sucked into a strange portal that appears out of nowhere. A menacing man appears out of thin air and slowly approaches you.\n\n\"HUH? WHAT JUST HAPPENED?? WHERE ARE WE???\"\n\n\"Oh no, is that...? OH GOD OH NO OH SH-\"");
+                    storyAlertBuilder.setPositiveButton("Explore?", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            AlertDialog.Builder secretAlertBuilder = new AlertDialog.Builder(Objects.requireNonNull(getContext()), R.style.StoryDialogTheme);
+                            secretAlertBuilder.setTitle("E̸̳̣͙͆͑̎̀͘R̶͍̹͌̿̈́̿͐̈R̸̢̲̬̹̞̹̼̃̔͗͋O̸̪͈͍͇̫̖͎̠̐R̶̨̪̰̰̪̘̾̓_̸̱̙͉̈́̔͜Ç̶̢͉̠̱̘̅̕ͅO̶̧̲̩͍͔̙̖̍͌̽̐̔̄̎ͅD̷̢̮̤̘̖̖̫̃̋͗E̸̠̱̐͒͂̚͘");
+                            secretAlertBuilder.setMessage("[i̸-̴i̷-̷i̵N̸c̶o̷M̶i̷N̷G̸]> V̶̤̣͈̠͒̂̒͝ḯ̴̧̨͓̈́̓̔͜ͅ ̴̭͍̯̋̇̔̆̚ş̸͙̣̣̉̀ì̶̬̲͇̩͛͆ţ̸̙̪͓̺͋͛͘t̶̢̝̺͙̿̂͛͗e̴̫̹̻̝̋̋̓̇̈́͜r̸̩̾̀̑͠ ̵͙̈́̈́̈h̵̲̙̄͘ä̶͔̗̹̙̈́̏̈́̄r̷͕̺̭̈́́͝͠ ̷̛͔͌̀̄̊i̶̖̗͈͙͂̔̿ ̷̨̮͕̮́̐̄͒V̴̲̥͈͍̌̍̚͝é̸̖̙n̶̨̼̖̞̐͋̄̿̾t̶̨̊̌͑̇̈͜e̸̗͓̭͂̕͜n̶̠͉̫̜̻̄̃̏̈");
+                            secretAlertBuilder.setCancelable(false);
+                            secretAlertBuilder.setPositiveButton("OH NO", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    sp.play(confirmSound,1,1,1,0,1.0f);
+                                    //Pass Secret Stage info to BattleActivity
+                                    Intent battleIntent = new Intent(getContext(), BattleActivity.class);
+                                    battleIntent.putExtra("enemy3_sprite",R.drawable.stagesecret_boss);
+                                    battleIntent.putExtra("enemy3_name","Lv.20 Milos the Midnight Dancer");
+                                    battleIntent.putExtra("battle_bg", R.drawable.stagesecret_battle_bg);
+                                    battleIntent.putExtra("battle_music", R.raw.bgm_stagesecret_finalboss);
+                                    Toast.makeText(getContext(),"[WARNING] MAXIMUM LEVEL D-D-DANGER THERE IS N̴͖̺͈̑́͗̒͠-̷̡̘͕̻̓̇̄N̸̲͑̋̂̅Ȍ̷͇͕̬̀̂͒ ̵̦͊̆͗Ë̷̢̛̪̹͕́̄͘S̶͙͖͓͍̓̍͘͘C̴̘̅̊A̶̪͊P̸̯̝̖̀̓E̷͚͓̭̺̹̒̄̑", Toast.LENGTH_LONG).show();
+                                    startActivity(battleIntent);
+                                }
+                            });
+                            storyDialog = secretAlertBuilder.create();
+                            Objects.requireNonNull(storyDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
+                            storyDialog.show();
+                        }
+                    });
+                    storyAlertBuilder.setNegativeButton("Turn Back", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    storyDialog = storyAlertBuilder.create();
+                    Objects.requireNonNull(storyDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E2C00")));
+                    storyDialog.show();
+                }
+                else{
+                    storyAlertBuilder.setTitle("?????");
+                    storyAlertBuilder.setMessage("Reach Level 20");
+                    storyDialog = storyAlertBuilder.create();
+                    Objects.requireNonNull(storyDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E2C00")));
+                    storyDialog.show();
+                }
             }
         });
 
