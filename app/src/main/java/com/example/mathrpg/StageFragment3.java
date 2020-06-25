@@ -146,11 +146,12 @@ public class StageFragment3 extends Fragment {
                     storyDialog.show();
                 }
                 else{
-                    storyAlertBuilder.setTitle("?????");
-                    storyAlertBuilder.setMessage("Reach Level 20");
-                    storyDialog = storyAlertBuilder.create();
-                    Objects.requireNonNull(storyDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E2C00")));
-                    storyDialog.show();
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(view.getContext(), R.style.StoryDialogTheme);
+                    alertBuilder.setTitle("?????");
+                    alertBuilder.setMessage("Reach Level 20");
+                    AlertDialog alertDialog = alertBuilder.create();
+                    Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E2C00")));
+                    alertDialog.show();
                 }
             }
         });
