@@ -93,6 +93,24 @@ public class StageFragment2 extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         sp.play(confirmSound,1,1,1,0,1.0f);
+                        //Pass Stage 2-1 info and enemy stats to BattleActivity
+                        Intent battleIntent = new Intent(getContext(), BattleActivity.class);
+                        battleIntent.putExtra("enemy1_sprite",R.drawable.stage2_1_minion1);
+                        battleIntent.putExtra("enemy2_sprite",R.drawable.stage2_1_minion2);
+                        battleIntent.putExtra("enemy3_sprite",R.drawable.stage2_1_boss);
+                        battleIntent.putExtra("enemy1_name","Lv.5 Hungry Yeti");
+                        battleIntent.putExtra("enemy2_name","Lv.5 Mischievous Yeti");
+                        battleIntent.putExtra("enemy3_name","Lv.6 Angry Elder Yeti");
+                        battleIntent.putExtra("enemy1_hp",1);
+                        battleIntent.putExtra("enemy2_hp",1);
+                        battleIntent.putExtra("enemy3_hp",1);
+                        battleIntent.putExtra("enemy1_attack",1);
+                        battleIntent.putExtra("enemy2_attack",1);
+                        battleIntent.putExtra("enemy3_attack",1);
+                        battleIntent.putExtra("battle_bg", R.drawable.stage2_battle_bg);
+                        battleIntent.putExtra("battle_music", R.raw.bgm_stage2_battle);
+                        battleIntent.putExtra("exp",15);
+                        startActivity(battleIntent);
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -116,6 +134,24 @@ public class StageFragment2 extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         sp.play(confirmSound,1,1,1,0,1.0f);
+                        //Pass Stage 2-2 info and enemy stats to BattleActivity
+                        Intent battleIntent = new Intent(getContext(), BattleActivity.class);
+                        battleIntent.putExtra("enemy1_sprite",R.drawable.stage2_2_minion1);
+                        battleIntent.putExtra("enemy2_sprite",R.drawable.stage2_2_minion2);
+                        battleIntent.putExtra("enemy3_sprite",R.drawable.stage2_2_boss);
+                        battleIntent.putExtra("enemy1_name","Lv.7 Brawler Shark");
+                        battleIntent.putExtra("enemy2_name","Lv.7 Blind Shark");
+                        battleIntent.putExtra("enemy3_name","Lv.8 Shark Warrior General");
+                        battleIntent.putExtra("enemy1_hp",1);
+                        battleIntent.putExtra("enemy2_hp",1);
+                        battleIntent.putExtra("enemy3_hp",1);
+                        battleIntent.putExtra("enemy1_attack",1);
+                        battleIntent.putExtra("enemy2_attack",1);
+                        battleIntent.putExtra("enemy3_attack",1);
+                        battleIntent.putExtra("battle_bg", R.drawable.stage2_battle_bg);
+                        battleIntent.putExtra("battle_music", R.raw.bgm_stage2_battle);
+                        battleIntent.putExtra("exp",20);
+                        startActivity(battleIntent);
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -143,8 +179,11 @@ public class StageFragment2 extends Fragment {
                         Intent battleIntent = new Intent(getContext(), BattleActivity.class);
                         battleIntent.putExtra("enemy3_sprite",R.drawable.stage2_3_boss);
                         battleIntent.putExtra("enemy3_name","Lv.10 Dragon Warlord");
+                        battleIntent.putExtra("enemy3_hp",1);
+                        battleIntent.putExtra("enemy3_attack",1);
                         battleIntent.putExtra("battle_bg", R.drawable.stage2_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage2_finalboss);
+                        battleIntent.putExtra("exp",40);
                         startActivity(battleIntent);
                     }
                 });

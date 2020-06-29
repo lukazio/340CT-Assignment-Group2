@@ -85,10 +85,21 @@ public class StageFragment3 extends Fragment {
                         sp.play(confirmSound,1,1,1,0,1.0f);
                         //Pass Final Stage info to BattleActivity, including all 3 forms of final boss
                         Intent battleIntent = new Intent(getContext(), BattleActivity.class);
+                        battleIntent.putExtra("enemy1_sprite",R.drawable.stagefinal_boss1);
+                        battleIntent.putExtra("enemy2_sprite",R.drawable.stagefinal_boss2);
                         battleIntent.putExtra("enemy3_sprite",R.drawable.stagefinal_boss3);
-                        battleIntent.putExtra("enemy3_name","Lv.15 Dark Dragon Lord");
+                        battleIntent.putExtra("enemy1_name","Lv.15 Dark Dragon Lord α");
+                        battleIntent.putExtra("enemy2_name","Lv.15 Dark Dragon Lord β");
+                        battleIntent.putExtra("enemy3_name","Lv.15 Supreme Lord of Darkness");
+                        battleIntent.putExtra("enemy1_hp",1);
+                        battleIntent.putExtra("enemy2_hp",1);
+                        battleIntent.putExtra("enemy3_hp",1);
+                        battleIntent.putExtra("enemy1_attack",1);
+                        battleIntent.putExtra("enemy2_attack",1);
+                        battleIntent.putExtra("enemy3_attack",1);
                         battleIntent.putExtra("battle_bg", R.drawable.stagefinal_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stagefinal_finalboss);
+                        battleIntent.putExtra("exp",100);
                         startActivity(battleIntent);
                     }
                 });
@@ -125,8 +136,11 @@ public class StageFragment3 extends Fragment {
                                     Intent battleIntent = new Intent(getContext(), BattleActivity.class);
                                     battleIntent.putExtra("enemy3_sprite",R.drawable.stagesecret_boss);
                                     battleIntent.putExtra("enemy3_name","Lv.20 Milos the Midnight Dancer");
+                                    battleIntent.putExtra("enemy3_hp",1);
+                                    battleIntent.putExtra("enemy3_attack",1);
                                     battleIntent.putExtra("battle_bg", R.drawable.stagesecret_battle_bg);
                                     battleIntent.putExtra("battle_music", R.raw.bgm_stagesecret_finalboss);
+                                    battleIntent.putExtra("exp",169);
                                     Toast.makeText(getContext(),"[WARNING] MAXIMUM LEVEL D-D-DANGER THERE IS N̴͖̺͈̑́͗̒͠-̷̡̘͕̻̓̇̄N̸̲͑̋̂̅Ȍ̷͇͕̬̀̂͒ ̵̦͊̆͗Ë̷̢̛̪̹͕́̄͘S̶͙͖͓͍̓̍͘͘C̴̘̅̊A̶̪͊P̸̯̝̖̀̓E̷͚͓̭̺̹̒̄̑", Toast.LENGTH_LONG).show();
                                     startActivity(battleIntent);
                                 }

@@ -42,7 +42,7 @@ public class BattleActivity extends AppCompatActivity {
     private Enemy enemy1,enemy2,enemy3;
 
     //Battle gameplay variables (correct answer button, turn, etc.)
-    private int answerButton,combo;
+    private int answerButton,combo,round=1;
     private boolean playerTurn;
 
     @Override
@@ -87,6 +87,16 @@ public class BattleActivity extends AppCompatActivity {
                 generateQuestion();
             }
         });
+        //Now testing: switching rounds to display enemies of each round
+        Button btnTest2 = (Button)findViewById(R.id.btn_test2);
+        btnTest2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                round++;
+                if(round > 3){round = 1;}
+                updateEnemyDisplay();
+            }
+        });
 
         //TODO: Test answering questions, move to code proper location when implementing turn-based battle mechanic
         btnAns1.setOnClickListener(new View.OnClickListener() {
@@ -118,24 +128,15 @@ public class BattleActivity extends AppCompatActivity {
         });
 
         //TODO: This area will get enemy stats info for each stage and also player info passed from the stage selection activities
-        //Get enemy names
-        if(getIntent().hasExtra("enemy1_name") && getIntent().hasExtra("enemy2_name") && getIntent().hasExtra("enemy3_name")){
-            //If non-boss stage (e.g. not Stage 1-3 or 2-3), get 3 names of enemies
+        updateEnemyDisplay();
+        //Get enemy stats (HP and Attack)
+        if(getIntent().hasExtra("enemy1_hp") && getIntent().hasExtra("enemy2_hp") && getIntent().hasExtra("enemy3_hp")){
+            enemy1.setStats(getIntent().getIntExtra("enemy1_hp",1), getIntent().getIntExtra("enemy1_attack",0));
+            enemy2.setStats(getIntent().getIntExtra("enemy2_hp",1), getIntent().getIntExtra("enemy2_attack",0));
+            enemy3.setStats(getIntent().getIntExtra("enemy3_hp",1), getIntent().getIntExtra("enemy3_attack",0));
         }
-        else if(getIntent().hasExtra("enemy3_name"))
-            tvEnemyName.setText(getIntent().getStringExtra("enemy3_name"));
-        else
-            tvEnemyName.setText("Lv.X EnemyName");
-        //Get enemy sprites
-        if(getIntent().hasExtra("enemy1_sprite") && getIntent().hasExtra("enemy2_sprite") && getIntent().hasExtra("enemy3_sprite")){
-            //If non-boss stage (e.g. not Stage 1-3 or 2-3), get 3 sprites of enemies
-        }
-        else if(getIntent().hasExtra("enemy3_sprite"))
-            ivEnemy.setImageDrawable(getDrawable(getIntent().getIntExtra("enemy3_sprite",0)));
-        else
-            ivEnemy.setImageDrawable(getDrawable(R.drawable.stage1_1_boss));
-        //Get enemy stats
-
+        else if(getIntent().hasExtra("enemy3_hp"))
+            enemy3.setStats(getIntent().getIntExtra("enemy3_hp",1), getIntent().getIntExtra("enemy3_attack",0));
         //Get stage background
         if(getIntent().hasExtra("battle_bg"))
             clBgStage.setBackground(getDrawable(getIntent().getIntExtra("battle_bg",0)));
@@ -244,6 +245,48 @@ public class BattleActivity extends AppCompatActivity {
                 break;
             default:
         }
+    }
+
+    //Update enemy name and image
+    public void updateEnemyDisplay(){
+        //Get enemy names
+        if(getIntent().hasExtra("enemy1_name") && getIntent().hasExtra("enemy2_name") && getIntent().hasExtra("enemy3_name")){
+            //If non-boss stage (e.g. not Stage 1-3 or 2-3), get 3 names of enemies
+            switch(round){
+                case 1:
+                    tvEnemyName.setText(getIntent().getStringExtra("enemy1_name"));
+                    break;
+                case 2:
+                    tvEnemyName.setText(getIntent().getStringExtra("enemy2_name"));
+                    break;
+                case 3:
+                    tvEnemyName.setText(getIntent().getStringExtra("enemy3_name"));
+                    break;
+            }
+        }
+        else if(getIntent().hasExtra("enemy3_name"))
+            tvEnemyName.setText(getIntent().getStringExtra("enemy3_name"));
+        else
+            tvEnemyName.setText("Lv.X EnemyName");
+        //Get enemy sprites
+        if(getIntent().hasExtra("enemy1_sprite") && getIntent().hasExtra("enemy2_sprite") && getIntent().hasExtra("enemy3_sprite")){
+            //If non-boss stage (e.g. not Stage 1-3 or 2-3), get 3 sprites of enemies
+            switch(round){
+                case 1:
+                    ivEnemy.setImageDrawable(getDrawable(getIntent().getIntExtra("enemy1_sprite",0)));
+                    break;
+                case 2:
+                    ivEnemy.setImageDrawable(getDrawable(getIntent().getIntExtra("enemy2_sprite",0)));
+                    break;
+                case 3:
+                    ivEnemy.setImageDrawable(getDrawable(getIntent().getIntExtra("enemy3_sprite",0)));
+                    break;
+            }
+        }
+        else if(getIntent().hasExtra("enemy3_sprite"))
+            ivEnemy.setImageDrawable(getDrawable(getIntent().getIntExtra("enemy3_sprite",0)));
+        else
+            ivEnemy.setImageDrawable(getDrawable(R.drawable.stage1_1_boss));
     }
 
     @Override
