@@ -93,7 +93,7 @@ public class StageFragment1 extends Fragment {
                         battleIntent.putExtra("enemy3_sprite",R.drawable.stage1_1_boss);
                         battleIntent.putExtra("enemy1_name","Lv.1 Sad Froggo");
                         battleIntent.putExtra("enemy2_name","Lv.1 Asian Froggo");
-                        battleIntent.putExtra("enemy3_name","Lv.2 Frog Shaman");
+                        battleIntent.putExtra("enemy3_name","Lv.2 Froggo Shaman");
                         battleIntent.putExtra("enemy1_hp",10);
                         battleIntent.putExtra("enemy2_hp",10);
                         battleIntent.putExtra("enemy3_hp",20);
@@ -132,8 +132,8 @@ public class StageFragment1 extends Fragment {
                         battleIntent.putExtra("enemy1_sprite",R.drawable.stage1_2_minion1);
                         battleIntent.putExtra("enemy2_sprite",R.drawable.stage1_2_minion2);
                         battleIntent.putExtra("enemy3_sprite",R.drawable.stage1_2_boss);
-                        battleIntent.putExtra("enemy1_name","Lv.2 Thorn Blob");
-                        battleIntent.putExtra("enemy2_name","Lv.2 Flowering Blob");
+                        battleIntent.putExtra("enemy1_name","Lv.2 Thorn Plant");
+                        battleIntent.putExtra("enemy2_name","Lv.2 Flowering Plant");
                         battleIntent.putExtra("enemy3_name","Lv.3 Raging Plant Queen");
                         battleIntent.putExtra("enemy1_hp",15);
                         battleIntent.putExtra("enemy2_hp",25);
