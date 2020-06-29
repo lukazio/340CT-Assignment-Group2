@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class BattleActivity extends AppCompatActivity {
 
@@ -31,13 +32,18 @@ public class BattleActivity extends AppCompatActivity {
     private SharedPreferences prefs;
     private MediaPlayer mp;
     private SoundPool sp;
-    private Button btnPause;
+    private Button btnPause,btnAns1,btnAns2,btnAns3;
     private AlertDialog.Builder pauseAlertBuilder;
     private AlertDialog pauseDialog;
     private Guideline hpGuideline;
 
-    //Battle variables (player's current HP, monster stats, stage EXP etc.)
-    private int currentHp,maxHp;
+    //Battle stage variables (player's current HP, monster stats, stage EXP, etc.)
+    private int currentHp,maxHp,stageExp;
+    private Enemy enemy1,enemy2,enemy3;
+
+    //Battle gameplay variables (correct answer button, turn, etc.)
+    private int answerButton,combo;
+    private boolean playerTurn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,27 +59,63 @@ public class BattleActivity extends AppCompatActivity {
         tvBarHpValue = (TextView)findViewById(R.id.tv_bar_hp_value);
         hpBar = (TextView)findViewById(R.id.hp_bar);
         ivEnemy = (ImageView)findViewById(R.id.iv_enemy);
-        btnPause=(Button)findViewById(R.id.btn_pause);
+        btnPause = (Button)findViewById(R.id.btn_pause);
+        btnAns1 = (Button)findViewById(R.id.btn_ans1);
+        btnAns2 = (Button)findViewById(R.id.btn_ans2);
+        btnAns3 = (Button)findViewById(R.id.btn_ans3);
         hpGuideline = (Guideline)findViewById(R.id.guideline_hp);
 
         //Set battle variables (player's current HP, monster stats, stage EXP etc.)
         currentHp = maxHp = prefs.getInt("hp",1);
         updatePlayerHealthBar();
-
-        //TODO: Test for HP bar reduction when player takes damage, remove when gameplay is implemented (don't remove updateHealthBar method as it will be used in gameplay)
-        Button btnTestDamage = (Button)findViewById(R.id.btn_test_damage);
-        btnTestDamage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentHp -= 1;
-                updatePlayerHealthBar();
-            }
-        });
+        enemy1 = new Enemy();
+        enemy2 = new Enemy();
+        enemy3 = new Enemy();
+        stageExp = getIntent().getIntExtra("exp",0);
 
         sp = new SoundPool.Builder().setMaxStreams(5).build();
         final int selectSound = sp.load(this, R.raw.stage_select,1);
 
         pauseAlertBuilder = new AlertDialog.Builder(this, R.style.StoryDialogTheme);
+
+        //TODO: Test button for various functions to test, remove when gameplay completed
+        //Now testing: question and answer generation
+        Button btnTest = (Button)findViewById(R.id.btn_test);
+        btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                generateQuestion();
+            }
+        });
+
+        //TODO: Test answering questions, move to code proper location when implementing turn-based battle mechanic
+        btnAns1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(answerButton == 1)
+                    Toast.makeText(BattleActivity.this,"Correct!",Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(BattleActivity.this,"Wrong...",Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnAns2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(answerButton == 2)
+                    Toast.makeText(BattleActivity.this,"Correct!",Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(BattleActivity.this,"Wrong...",Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnAns3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(answerButton == 3)
+                    Toast.makeText(BattleActivity.this,"Correct!",Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(BattleActivity.this,"Wrong...",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //TODO: This area will get enemy stats info for each stage and also player info passed from the stage selection activities
         //Get enemy names
@@ -131,8 +173,9 @@ public class BattleActivity extends AppCompatActivity {
                     showPauseMenu();
             }
         });
-    }
+    } //END OF onCreate
 
+    //Shows the pause menu with 2 buttons Resume and Quit
     public void showPauseMenu() {
         pauseAlertBuilder.setTitle("Pause");
         pauseAlertBuilder.setPositiveButton("Resume", new DialogInterface.OnClickListener() {
@@ -151,6 +194,7 @@ public class BattleActivity extends AppCompatActivity {
         pauseDialog.show();
     }
 
+    //Update the HP bar's length and colour according to player's health level
     public void updatePlayerHealthBar(){
         if(currentHp < 0)
             currentHp = 0;
@@ -164,6 +208,42 @@ public class BattleActivity extends AppCompatActivity {
 
         hpGuideline.setGuidelinePercent((float)currentHp/maxHp);
         tvBarHpValue.setText(currentHp + " / " + maxHp);
+    }
+
+    //Generate a random math question and its answers
+    public void generateQuestion(){
+        int a;
+        int x = ThreadLocalRandom.current().nextInt(1,11);
+        int y = ThreadLocalRandom.current().nextInt(1,11);
+
+        if(ThreadLocalRandom.current().nextBoolean()){
+            a = x+y;
+            tvQuestion.setText(x + " + " + y);
+        }
+        else{
+            a = x-y;
+            tvQuestion.setText(x + " - " + y);
+        }
+
+        answerButton = ThreadLocalRandom.current().nextInt(1,4);
+        switch(answerButton){
+            case 1:
+                btnAns1.setText("" + a);
+                btnAns2.setText("" + (a+1));
+                btnAns3.setText("" + (a+2));
+                break;
+            case 2:
+                btnAns1.setText("" + (a-1));
+                btnAns2.setText("" + a);
+                btnAns3.setText("" + (a+1));
+                break;
+            case 3:
+                btnAns1.setText("" + (a-2));
+                btnAns2.setText("" + (a-1));
+                btnAns3.setText("" + a);
+                break;
+            default:
+        }
     }
 
     @Override

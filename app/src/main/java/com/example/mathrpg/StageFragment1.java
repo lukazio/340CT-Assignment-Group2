@@ -86,6 +86,17 @@ public class StageFragment1 extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         sp.play(confirmSound,1,1,1,0,1.0f);
+                        //Pass Stage 1-1 info and enemy stats to BattleActivity
+                        Intent battleIntent = new Intent(getContext(), BattleActivity.class);
+                        battleIntent.putExtra("enemy1_sprite",R.drawable.stage1_1_minion1);
+                        battleIntent.putExtra("enemy2_sprite",R.drawable.stage1_1_minion2);
+                        battleIntent.putExtra("enemy3_sprite",R.drawable.stage1_1_boss);
+                        battleIntent.putExtra("enemy1_name","Lv.1 Sad Froggo");
+                        battleIntent.putExtra("enemy2_name","Lv.1 Asian Froggo");
+                        battleIntent.putExtra("enemy3_name","Lv.2 Frog Shaman");
+                        battleIntent.putExtra("battle_bg", R.drawable.stage1_battle_bg);
+                        battleIntent.putExtra("battle_music", R.raw.bgm_stage1_battle);
+                        startActivity(battleIntent);
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -109,6 +120,17 @@ public class StageFragment1 extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         sp.play(confirmSound,1,1,1,0,1.0f);
+                        //Pass Stage 1-2 info and enemy stats to BattleActivity
+                        Intent battleIntent = new Intent(getContext(), BattleActivity.class);
+                        battleIntent.putExtra("enemy1_sprite",R.drawable.stage1_2_minion1);
+                        battleIntent.putExtra("enemy2_sprite",R.drawable.stage1_2_minion2);
+                        battleIntent.putExtra("enemy3_sprite",R.drawable.stage1_2_boss);
+                        battleIntent.putExtra("enemy1_name","Lv.2 Thorn Blob");
+                        battleIntent.putExtra("enemy2_name","Lv.2 Flowering Blob");
+                        battleIntent.putExtra("enemy3_name","Lv.3 Raging Plant Queen");
+                        battleIntent.putExtra("battle_bg", R.drawable.stage1_battle_bg);
+                        battleIntent.putExtra("battle_music", R.raw.bgm_stage1_battle);
+                        startActivity(battleIntent);
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -132,10 +154,12 @@ public class StageFragment1 extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         sp.play(confirmSound,1,1,1,0,1.0f);
-                        //Pass Stage 1-3 info to BattleActivity
+                        //Pass Stage 1-3 info and enemy stats to BattleActivity
                         Intent battleIntent = new Intent(getContext(), BattleActivity.class);
                         battleIntent.putExtra("enemy3_sprite",R.drawable.stage1_3_boss);
                         battleIntent.putExtra("enemy3_name","Lv.5 Forest Dragon");
+                        battleIntent.putExtra("enemy3_hp",40);
+                        battleIntent.putExtra("enemy3_attack",6);
                         battleIntent.putExtra("battle_bg", R.drawable.stage1_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage1_finalboss);
                         startActivity(battleIntent);
