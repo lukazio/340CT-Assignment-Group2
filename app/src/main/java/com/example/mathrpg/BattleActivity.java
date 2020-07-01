@@ -15,16 +15,23 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BattleActivity extends AppCompatActivity {
+
+    private static final long START_TIME_IN_MILLIS = 15000; //for countdown timer
+    private CountDownTimer mCountDownTimer;
+    private boolean mTimerRunning;
+    private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
 
     private ConstraintLayout clBgStage;
     private TextView tvEnemyName,tvQuestion,tvTimer,tvBarHpValue,hpBar;
@@ -32,7 +39,7 @@ public class BattleActivity extends AppCompatActivity {
     private SharedPreferences prefs;
     private MediaPlayer mp;
     private SoundPool sp;
-    private Button btnPause,btnAns1,btnAns2,btnAns3;
+    private Button btnPause,btnAns1,btnAns2,btnAns3, btnBeginTurn,btnreset;
     private AlertDialog.Builder pauseAlertBuilder;
     private AlertDialog pauseDialog;
     private Guideline hpGuideline;
@@ -64,6 +71,25 @@ public class BattleActivity extends AppCompatActivity {
         btnAns2 = (Button)findViewById(R.id.btn_ans2);
         btnAns3 = (Button)findViewById(R.id.btn_ans3);
         hpGuideline = (Guideline)findViewById(R.id.guideline_hp);
+        btnBeginTurn=(Button)findViewById(R.id.btn_begin) ;
+        btnreset=(Button)findViewById(R.id.btn_reset);
+
+        //set up countdown timer
+        btnBeginTurn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTimer(START_TIME_IN_MILLIS);
+                updateCountDownText();
+            }
+        });
+
+        btnreset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetTimer();
+            }
+        });
+
 
         //Set battle variables (player's current HP, monster stats, stage EXP etc.)
         currentHp = maxHp = prefs.getInt("hp",1);
@@ -175,6 +201,37 @@ public class BattleActivity extends AppCompatActivity {
             }
         });
     } //END OF onCreate
+
+    //start countdown timer
+    private void startTimer(long START_TIME_IN_MILLIS) {
+        mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mTimeLeftInMillis = millisUntilFinished;
+                updateCountDownText();
+            }
+            @Override
+            public void onFinish() {
+                mTimerRunning = false;
+
+            }
+        }.start();
+        mTimerRunning = true;
+    }
+
+    //reset countdown timer for new round
+    private void resetTimer() {
+        mTimeLeftInMillis = START_TIME_IN_MILLIS;
+        updateCountDownText();
+    }
+
+    //update timer text
+    private void updateCountDownText() {
+        int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
+        int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        tvTimer.setText(timeLeftFormatted);
+    }
 
     //Shows the pause menu with 2 buttons Resume and Quit
     public void showPauseMenu() {

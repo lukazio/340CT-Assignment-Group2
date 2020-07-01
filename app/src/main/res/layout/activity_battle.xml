@@ -132,7 +132,7 @@
             android:id="@+id/tv_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="[Timer]"
+            android:text="00:15"
             android:textColor="@color/yellow"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -216,5 +216,14 @@
             android:text="test"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_test" />
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="reset timer test"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_ans1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
