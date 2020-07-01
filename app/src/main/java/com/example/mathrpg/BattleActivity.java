@@ -98,7 +98,9 @@ public class BattleActivity extends AppCompatActivity {
         btnreset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                stopTimer();
                 resetTimer();
+                startTimer();
             }
         });
 
@@ -276,6 +278,11 @@ public class BattleActivity extends AppCompatActivity {
         mTimerRunning = true;
     }
 
+    //stop timer before reset
+    private void stopTimer(){
+        mCountDownTimer.cancel();
+    }
+
     //pause timer
     private void pauseTimer() {
         mCountDownTimer.cancel();
@@ -418,6 +425,7 @@ public class BattleActivity extends AppCompatActivity {
         }
         else{
             showPauseMenu();
+            pauseTimer();
         }
     }
 
