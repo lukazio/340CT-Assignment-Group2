@@ -51,6 +51,7 @@ public class BattleActivity extends AppCompatActivity {
     //Battle gameplay variables (correct answer button, turn, etc.)
     private int answerButton,combo,round=1;
     private boolean playerTurn;
+    private boolean comboBroken = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +79,14 @@ public class BattleActivity extends AppCompatActivity {
         btnBeginTurn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    startTimer();
-                    updateCountDownText();
+                btnBeginTurn.setVisibility(View.GONE);  //Hide button
+                startTimer();   //Start timer countdown
+                updateCountDownText();
+                playerTurn = true;  //Start player turn
+                generateQuestion(); //Start generating question
+                btnAns1.setVisibility(View.VISIBLE);
+                btnAns2.setVisibility(View.VISIBLE);
+                btnAns3.setVisibility(View.VISIBLE);
             }
         });
 
@@ -128,28 +135,67 @@ public class BattleActivity extends AppCompatActivity {
         btnAns1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(answerButton == 1)
-                    Toast.makeText(BattleActivity.this,"Correct!",Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(BattleActivity.this,"Wrong...",Toast.LENGTH_SHORT).show();
+                if(answerButton == 1) {
+                    Toast.makeText(BattleActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
+                    generateQuestion();
+                    combo+=1;
+                    Toast.makeText(BattleActivity.this, "Total COMBO : "+combo, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    if(playerTurn) {
+                        Toast.makeText(BattleActivity.this, "Wrong...It's enemy's turn now", Toast.LENGTH_SHORT).show();
+                        playerTurn = false;
+                        combo = 0;
+                        generateQuestion();
+                    }
+                    else{
+                        Toast.makeText(BattleActivity.this, "Taking damage!", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
         btnAns2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(answerButton == 2)
-                    Toast.makeText(BattleActivity.this,"Correct!",Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(BattleActivity.this,"Wrong...",Toast.LENGTH_SHORT).show();
+                if(answerButton == 2) {
+                    Toast.makeText(BattleActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
+                    generateQuestion();
+                    combo+=1;
+                    Toast.makeText(BattleActivity.this, "Total COMBO : "+combo, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    if(playerTurn) {
+                        Toast.makeText(BattleActivity.this, "Wrong...It's enemy's turn now", Toast.LENGTH_SHORT).show();
+                        playerTurn = false;
+                        combo = 0;
+                        generateQuestion();
+                    }
+                    else{
+                        Toast.makeText(BattleActivity.this, "Taking damage!", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
         btnAns3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(answerButton == 3)
-                    Toast.makeText(BattleActivity.this,"Correct!",Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(BattleActivity.this,"Wrong...",Toast.LENGTH_SHORT).show();
+                if(answerButton == 3) {
+                    Toast.makeText(BattleActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
+                    generateQuestion();
+                    combo+=1;
+                    Toast.makeText(BattleActivity.this, "Total COMBO : "+combo, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    if(playerTurn) {
+                        Toast.makeText(BattleActivity.this, "Wrong...It's enemy's turn now", Toast.LENGTH_SHORT).show();
+                        playerTurn = false;
+                        combo = 0;
+                        generateQuestion();
+                    }
+                    else{
+                        Toast.makeText(BattleActivity.this, "Taking damage!", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 
