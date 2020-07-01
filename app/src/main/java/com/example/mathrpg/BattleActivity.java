@@ -75,6 +75,9 @@ public class BattleActivity extends AppCompatActivity {
         btnBeginTurn=(Button)findViewById(R.id.btn_begin) ;
         btnreset=(Button)findViewById(R.id.btn_reset);
 
+        tvQuestion.setVisibility(View.GONE);
+        tvTimer.setVisibility(View.GONE);
+
         //set up countdown timer
         btnBeginTurn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +152,7 @@ public class BattleActivity extends AppCompatActivity {
                         playerTurn = false;
                         combo = 0;
                         generateQuestion();
+                        resetTimer();
                     }
                     else{
                         Toast.makeText(BattleActivity.this, "Taking damage!", Toast.LENGTH_SHORT).show();
@@ -171,6 +175,7 @@ public class BattleActivity extends AppCompatActivity {
                         playerTurn = false;
                         combo = 0;
                         generateQuestion();
+                        resetTimer();
                     }
                     else{
                         Toast.makeText(BattleActivity.this, "Taking damage!", Toast.LENGTH_SHORT).show();
@@ -193,6 +198,7 @@ public class BattleActivity extends AppCompatActivity {
                         playerTurn = false;
                         combo = 0;
                         generateQuestion();
+                        resetTimer();
                     }
                     else{
                         Toast.makeText(BattleActivity.this, "Taking damage!", Toast.LENGTH_SHORT).show();
