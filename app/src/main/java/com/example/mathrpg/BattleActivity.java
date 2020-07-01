@@ -109,7 +109,8 @@ public class BattleActivity extends AppCompatActivity {
 
         //Set battle variables (player's current HP, monster stats, stage EXP etc.)
         currentHp = maxHp = prefs.getInt("hp",1);
-        totalDmg = playerAttack = prefs.getInt("attack", 0);
+        playerAttack = prefs.getInt("attack", 0);
+        totalDmg = 0;
         updatePlayerHealthBar();
         enemy1 = new Enemy();
         enemy2 = new Enemy();
@@ -236,6 +237,7 @@ public class BattleActivity extends AppCompatActivity {
                 tvCombo.setVisibility(View.VISIBLE);
             }
             tvCombo.setText("COMBO: "+combo);
+            //TODO: Round off value
             totalDmg = (1.0 + 0.2*(combo-1))*playerAttack;
             generateQuestion();
         }
@@ -307,9 +309,11 @@ public class BattleActivity extends AppCompatActivity {
     private void startNew(){
         generateQuestion();
         startTimer();
-        totalDmg = playerAttack;
+        totalDmg = 0;
         //TODO: Add monster default attack value here
     }
+
+    //TODO: Function to update Turn Label
 
     //start countdown timer
     private void startTimer() {
