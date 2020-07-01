@@ -78,8 +78,8 @@ public class BattleActivity extends AppCompatActivity {
         btnBeginTurn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startTimer(START_TIME_IN_MILLIS);
-                updateCountDownText();
+                    startTimer();
+                    updateCountDownText();
             }
         });
 
@@ -198,12 +198,13 @@ public class BattleActivity extends AppCompatActivity {
                     Toast.makeText(BattleActivity.this, "THERE IS N̷̜̭̙͐Ö̶̮̲́ ̴̳̗̖͇̞͛̈́Ȩ̶̧̳͙̑͂S̷̤̰̩̎̍̾C̴̭̥͖͘Ą̸͎̹̲̔͂̕̚ͅP̴̖͋̓̌E̵̪̥̫͗̋̎̒", Toast.LENGTH_SHORT).show();
                 else
                     showPauseMenu();
+                    pauseTimer();
             }
         });
     } //END OF onCreate
 
     //start countdown timer
-    private void startTimer(long START_TIME_IN_MILLIS) {
+    private void startTimer() {
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -217,6 +218,12 @@ public class BattleActivity extends AppCompatActivity {
             }
         }.start();
         mTimerRunning = true;
+    }
+
+    //pause timer
+    private void pauseTimer() {
+        mCountDownTimer.cancel();
+        mTimerRunning = false;
     }
 
     //reset countdown timer for new round
@@ -239,6 +246,7 @@ public class BattleActivity extends AppCompatActivity {
         pauseAlertBuilder.setPositiveButton("Resume", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                startTimer();
             }
         });
         pauseAlertBuilder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
