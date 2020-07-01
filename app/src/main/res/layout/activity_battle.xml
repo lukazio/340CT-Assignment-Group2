@@ -126,7 +126,8 @@
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline9" />
+            app:layout_constraintTop_toTopOf="@+id/guideline9"
+            tools:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_timer"
@@ -136,7 +137,8 @@
             android:textColor="@color/yellow"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline9" />
+            app:layout_constraintTop_toTopOf="@+id/guideline9"
+            tools:visibility="gone" />
 
         <Button
             android:id="@+id/btn_ans1"

@@ -87,6 +87,8 @@ public class BattleActivity extends AppCompatActivity {
                 btnAns1.setVisibility(View.VISIBLE);
                 btnAns2.setVisibility(View.VISIBLE);
                 btnAns3.setVisibility(View.VISIBLE);
+                tvQuestion.setVisibility(View.VISIBLE);
+                tvTimer.setVisibility(View.VISIBLE);
             }
         });
 
@@ -260,7 +262,9 @@ public class BattleActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 mTimerRunning = false;
-
+                Toast.makeText(BattleActivity.this, "It's enemy turn now!", Toast.LENGTH_SHORT).show();
+                playerTurn = false;
+                generateQuestion();
             }
         }.start();
         mTimerRunning = true;
