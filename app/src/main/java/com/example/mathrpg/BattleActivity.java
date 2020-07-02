@@ -78,7 +78,7 @@ public class BattleActivity extends AppCompatActivity {
         hpGuideline = (Guideline)findViewById(R.id.guideline_hp);
         eneHpGuideline = (Guideline)findViewById(R.id.guideline_ene_hp);
         btnBeginTurn=(Button)findViewById(R.id.btn_begin) ;
-        btnreset=(Button)findViewById(R.id.btn_reset);
+        //btnreset=(Button)findViewById(R.id.btn_reset);
 
         tvQuestion.setVisibility(View.GONE);
         tvTimer.setVisibility(View.GONE);
@@ -103,14 +103,14 @@ public class BattleActivity extends AppCompatActivity {
             }
         });
 
-        btnreset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopTimer();
-                resetTimer();
-                startTimer();
-            }
-        });
+//        btnreset.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                stopTimer();
+//                resetTimer();
+//                startTimer();
+//            }
+//        });
 
 
         //Set battle variables (player's current HP, monster stats, stage EXP etc.)
@@ -503,7 +503,8 @@ public class BattleActivity extends AppCompatActivity {
         else
             eneHpBar.setBackgroundColor(Color.parseColor("#43A047"));
 
-        eneHpGuideline.setGuidelinePercent((float)currentEneHp/currentEnemy.getHp());
+        float enmHP=currentEnemy.getHp();
+        eneHpGuideline.setGuidelinePercent((float)currentEneHp/enmHP);
         tvBarEneHpValue.setText(currentEneHp + " / " + currentEnemy.getHp());
 
     }
