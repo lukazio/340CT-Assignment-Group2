@@ -310,7 +310,7 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     //END TURN dialog
-    private void showEndTurnDialog(int dmgMade, int dmgReceived){
+    private void showEndTurnDialog(int dmgMade, int dmgReceived) {
 
         stopTimer();
         resetTimer();
@@ -318,29 +318,51 @@ public class BattleActivity extends AppCompatActivity {
         AlertDialog.Builder dialog = new AlertDialog.Builder(BattleActivity.this);
         dialog.setCancelable(false);
 
-        if(playerTurn){
+        if (playerTurn) {
             dialog.setTitle("End of your Turn");
-            dialog.setMessage("\nTotal damage dealt: "+dmgMade+"\nDefend yourself now!");
+            dialog.setMessage("\nTotal damage dealt: " + dmgMade + "\nDefend yourself now!");
             //Reduced monster hp here
             currentEneHp = currentEneHp - dmgMade;
             tvCombo.setVisibility(View.GONE);
             updateEnemyHealthBar();
+            dialog.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    startNew();
+                }
+            });
+            dialog.show();
         }
-        else{
-            dialog.setTitle("End of enemy's Turn");
-            dialog.setMessage("You've received "+dmgReceived+" damage from the enemy's attack!\nIt's your turn now!");
-            currentHp = currentHp-dmgReceived;
-            updatePlayerHealthBar();
-        }
+        else {
+            currentHp = currentHp - dmgReceived;
+            boolean isGameOver = updatePlayerHealthBar();
 
-        dialog.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                startNew();
+            if(isGameOver){
+                dialog.setTitle("GAME OVER");
+                //dialog.setCancelable(false);
+                dialog.setMessage("better luck next timer");
+                dialog.setPositiveButton("Go to stage", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        BattleActivity.super.onBackPressed();
+                    }
+                });
             }
-        });
-        dialog.show();
+            else{
+                dialog.setTitle("End of enemy's Turn");
+                dialog.setMessage("You've received " + dmgReceived + " damage from the enemy's attack!\nIt's your turn now!");
+                dialog.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        startNew();
+                    }
+                });
+            }
+            dialog.show();
+        }
 
     }
 
@@ -455,7 +477,7 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     //Update the HP bar's length and colour according to player's health level
-    public void updatePlayerHealthBar(){
+    public boolean updatePlayerHealthBar(){
         if(currentHp < 0)
             currentHp = 0;
 
@@ -468,6 +490,11 @@ public class BattleActivity extends AppCompatActivity {
 
         hpGuideline.setGuidelinePercent((float)currentHp/maxHp);
         tvBarHpValue.setText(currentHp + " / " + maxHp);
+
+        if(currentHp<=0)
+            return true;
+        else
+            return false;
     }
 
     //TODO:Update the HP bar's length and colour according to monster's health level
@@ -503,8 +530,8 @@ public class BattleActivity extends AppCompatActivity {
         else
             eneHpBar.setBackgroundColor(Color.parseColor("#43A047"));
 
-        float enmHP=currentEnemy.getHp();
-        eneHpGuideline.setGuidelinePercent((float)currentEneHp/enmHP);
+       // float enmHP=currentEnemy.getHp();
+        eneHpGuideline.setGuidelinePercent((float)currentEneHp/currentEnemy.getHp());
         tvBarEneHpValue.setText(currentEneHp + " / " + currentEnemy.getHp());
 
     }
