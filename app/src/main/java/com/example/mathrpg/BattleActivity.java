@@ -34,7 +34,7 @@ public class BattleActivity extends AppCompatActivity {
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
 
     private ConstraintLayout clBgStage;
-    private TextView tvEnemyName,tvQuestion,tvTimer,tvBarHpValue,hpBar,tvCombo;
+    private TextView tvEnemyName,tvQuestion,tvTimer,tvBarHpValue,hpBar,tvCombo,tvTurn,tvBarEneHpValue,eneHpBar;
     private ImageView ivEnemy;
     private SharedPreferences prefs;
     private MediaPlayer mp;
@@ -42,10 +42,10 @@ public class BattleActivity extends AppCompatActivity {
     private Button btnPause,btnAns1,btnAns2,btnAns3, btnBeginTurn,btnreset;
     private AlertDialog.Builder pauseAlertBuilder;
     private AlertDialog pauseDialog;
-    private Guideline hpGuideline;
+    private Guideline hpGuideline,eneHpGuideline;
 
     //Battle stage variables (player's current HP, monster stats, stage EXP, etc.)
-    private int currentHp,maxHp,stageExp,playerAttack;
+    private int currentHp,maxHp,stageExp,playerAttack,currentEneHp;
     private double totalDmg, dmgTaken;
     private Enemy enemy1,enemy2,enemy3;
 
@@ -65,20 +65,25 @@ public class BattleActivity extends AppCompatActivity {
         tvQuestion = (TextView)findViewById(R.id.tv_question);
         tvTimer = (TextView)findViewById(R.id.tv_timer);
         tvCombo = (TextView)findViewById(R.id.tv_combo);
+        tvTurn = (TextView) findViewById(R.id.tv_turn);
         tvBarHpValue = (TextView)findViewById(R.id.tv_bar_hp_value);
         hpBar = (TextView)findViewById(R.id.hp_bar);
+        eneHpBar = (TextView)findViewById(R.id.ene_hp_bar);
+        tvBarEneHpValue = (TextView)findViewById(R.id.tv_bar_ene_hp_value);
         ivEnemy = (ImageView)findViewById(R.id.iv_enemy);
         btnPause = (Button)findViewById(R.id.btn_pause);
         btnAns1 = (Button)findViewById(R.id.btn_ans1);
         btnAns2 = (Button)findViewById(R.id.btn_ans2);
         btnAns3 = (Button)findViewById(R.id.btn_ans3);
         hpGuideline = (Guideline)findViewById(R.id.guideline_hp);
+        eneHpGuideline = (Guideline)findViewById(R.id.guideline_ene_hp);
         btnBeginTurn=(Button)findViewById(R.id.btn_begin) ;
         btnreset=(Button)findViewById(R.id.btn_reset);
 
         tvQuestion.setVisibility(View.GONE);
         tvTimer.setVisibility(View.GONE);
         tvCombo.setVisibility(View.GONE);
+        tvTurn.setVisibility(View.GONE);
 
         //set up countdown timer
         btnBeginTurn.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +93,7 @@ public class BattleActivity extends AppCompatActivity {
                 startTimer();   //Start timer countdown
                 updateCountDownText();
                 playerTurn = true;  //Start player turn
+                updateTurnLabel();
                 generateQuestion(); //Start generating question
                 btnAns1.setVisibility(View.VISIBLE);
                 btnAns2.setVisibility(View.VISIBLE);
@@ -116,6 +122,7 @@ public class BattleActivity extends AppCompatActivity {
         enemy2 = new Enemy();
         enemy3 = new Enemy();
         stageExp = getIntent().getIntExtra("exp",0);
+
 
         sp = new SoundPool.Builder().setMaxStreams(5).build();
         final int selectSound = sp.load(this, R.raw.stage_select,1);
@@ -197,6 +204,10 @@ public class BattleActivity extends AppCompatActivity {
             mp.start();
         }
 
+        //Show first enemy onstartup
+        currentEneHp = enemy1.getHp();
+        updateEnemyHealthBar();
+
         //Only show this AlertDialog if data is passed from secret stage
         if(getIntent().hasExtra("enemy3_sprite")){
             if(getIntent().getIntExtra("enemy3_sprite",0) == R.drawable.stagesecret_boss){
@@ -231,13 +242,13 @@ public class BattleActivity extends AppCompatActivity {
     private void onCorrect(){
         //When it's player's turn
         if(playerTurn) {
-            Toast.makeText(BattleActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(BattleActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
             combo += 1;
             if(combo==1){
                 tvCombo.setVisibility(View.VISIBLE);
             }
             tvCombo.setText("COMBO: "+combo);
-            //TODO: Round off value
+            //TODO: Round off value(if needed)
             totalDmg = (1.0 + 0.2*(combo-1))*playerAttack;
             generateQuestion();
         }
@@ -245,10 +256,21 @@ public class BattleActivity extends AppCompatActivity {
         //When it's enemy's turn
         else{
             Toast.makeText(BattleActivity.this, "Correct! Reducing damage...", Toast.LENGTH_SHORT).show();
-            //TODO: Calculate reduced dmg here
 
-            showEndTurnDialog(0,1);
+            //Calculated reduced dmg taken here
+            switch (round){
+                case 1: dmgTaken = enemy1.getAttack()/2;
+                break;
+                case 2: dmgTaken = enemy2.getAttack()/2;
+                break;
+                case 3: dmgTaken = enemy3.getAttack()/2;
+                break;
+                default:
+            }
+
+            showEndTurnDialog(0,(int)dmgTaken);
             playerTurn = true;
+            updateTurnLabel();
         }
 
     }
@@ -257,9 +279,10 @@ public class BattleActivity extends AppCompatActivity {
     private void onWrong(){
         //When it's player's turn
         if(playerTurn) {
-            Toast.makeText(BattleActivity.this, "Wrong...It's enemy's turn now", Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(BattleActivity.this, "Wrong...It's enemy's turn now", Toast.LENGTH_SHORT).show();
             showEndTurnDialog((int)totalDmg,0);
             playerTurn = false;
+            updateTurnLabel();
             combo = 0;
             tvCombo.setVisibility(View.GONE);
         }
@@ -267,9 +290,21 @@ public class BattleActivity extends AppCompatActivity {
         //When it's enemy's turn
         else{
             Toast.makeText(BattleActivity.this, "Taking full damage!", Toast.LENGTH_SHORT).show();
-            //TODO: Insert full damage value here
-            showEndTurnDialog(0,5);
+
+            //Inserted full damage taken value here
+            switch (round){
+                case 1: dmgTaken = enemy1.getAttack();
+                    break;
+                case 2: dmgTaken = enemy2.getAttack();
+                    break;
+                case 3: dmgTaken = enemy3.getAttack();
+                    break;
+                default:
+            }
+
+            showEndTurnDialog(0,(int)dmgTaken);
             playerTurn = true;
+            updateTurnLabel();
         }
 
     }
@@ -281,13 +316,18 @@ public class BattleActivity extends AppCompatActivity {
         resetTimer();
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(BattleActivity.this);
-        dialog.setTitle("End of Turn");
+        dialog.setCancelable(false);
 
         if(playerTurn){
-            dialog.setMessage("End of your turn...\nTotal damage dealt: "+dmgMade);
-            //TODO: Reduce monster hp here
+            dialog.setTitle("End of your Turn");
+            dialog.setMessage("\nTotal damage dealt: "+dmgMade+"\nDefend yourself now!");
+            //Reduced monster hp here
+            currentEneHp = currentEneHp - dmgMade;
+            tvCombo.setVisibility(View.GONE);
+            updateEnemyHealthBar();
         }
         else{
+            dialog.setTitle("End of enemy's Turn");
             dialog.setMessage("You've received "+dmgReceived+" damage from the enemy's attack!\nIt's your turn now!");
             currentHp = currentHp-dmgReceived;
             updatePlayerHealthBar();
@@ -297,7 +337,6 @@ public class BattleActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-
                 startNew();
             }
         });
@@ -310,10 +349,23 @@ public class BattleActivity extends AppCompatActivity {
         generateQuestion();
         startTimer();
         totalDmg = 0;
-        //TODO: Add monster default attack value here
+        dmgTaken = 0;
+        combo = 0;
     }
 
-    //TODO: Function to update Turn Label
+    //Function to update Turn Label
+    private void updateTurnLabel(){
+        if(playerTurn){
+            tvTurn.setVisibility(View.VISIBLE);
+            tvTurn.setTextColor(Color.parseColor("#42A5F5"));
+            tvTurn.setText("Your Turn: Attack now!");
+        }
+        else{
+            tvTurn.setVisibility(View.VISIBLE);
+            tvTurn.setTextColor(Color.parseColor("#f54242"));
+            tvTurn.setText("Enemy's Turn: Defend yourself now!");
+        }
+    }
 
     //start countdown timer
     private void startTimer() {
@@ -331,14 +383,25 @@ public class BattleActivity extends AppCompatActivity {
                     Toast.makeText(BattleActivity.this, "It's enemy turn now!", Toast.LENGTH_SHORT).show();
                     showEndTurnDialog((int)totalDmg,0);
                     playerTurn = false;
+                    updateTurnLabel();
                 }
 
                 //When it's enemy's turn
                 else{
                     Toast.makeText(BattleActivity.this, "Taking full damage!", Toast.LENGTH_SHORT).show();
-                    //TODO: Insert full damage value
+                    //Inserted full damage taken value
+                    switch (round){
+                        case 1: dmgTaken = enemy1.getAttack();
+                            break;
+                        case 2: dmgTaken = enemy2.getAttack();
+                            break;
+                        case 3: dmgTaken = enemy3.getAttack();
+                            break;
+                        default:
+                    }
                     showEndTurnDialog(0,5);
                     playerTurn = true;
+                    updateTurnLabel();
                 }
 
             }
@@ -405,6 +468,68 @@ public class BattleActivity extends AppCompatActivity {
 
         hpGuideline.setGuidelinePercent((float)currentHp/maxHp);
         tvBarHpValue.setText(currentHp + " / " + maxHp);
+    }
+
+    //TODO:Update the HP bar's length and colour according to monster's health level
+    public void updateEnemyHealthBar(){
+
+        Enemy currentEnemy = new Enemy();
+        switch (round){
+            case 1:{
+                currentEnemy = enemy1;
+                break;
+            }
+            case 2:{
+                currentEnemy = enemy2;
+                break;
+            }
+            case 3:{
+                currentEnemy = enemy3;
+                break;
+            }
+            default:
+        }
+
+        //If enemy died
+        if(currentEneHp <= 0) {
+            currentEneHp = 0;
+            changeRound();
+        }
+
+        if((float)currentEneHp/currentEnemy.getHp() <= 0.25)
+            eneHpBar.setBackgroundColor(Color.parseColor("#E53935"));
+        else if((float)currentEneHp/currentEnemy.getHp() > 0.25 && (float)currentEneHp/currentEnemy.getHp() <= 0.5)
+            eneHpBar.setBackgroundColor(Color.parseColor("#FBC02D"));
+        else
+            eneHpBar.setBackgroundColor(Color.parseColor("#43A047"));
+
+        eneHpGuideline.setGuidelinePercent((float)currentEneHp/currentEnemy.getHp());
+        tvBarEneHpValue.setText(currentEneHp + " / " + currentEnemy.getHp());
+
+    }
+
+    //Change Round FUnction
+    private void changeRound(){
+        Enemy newEnemy = new Enemy();
+        Toast.makeText(this, "Next Stage...", Toast.LENGTH_SHORT).show();
+        round++;
+        if(round>3){
+            startActivity(new Intent(BattleActivity.this,StageActivity.class));
+        }
+        else {
+            updateEnemyDisplay();
+            switch (round){
+                case 1: newEnemy = enemy1;
+                    break;
+                case 2: newEnemy = enemy2;
+                    break;
+                case 3: newEnemy = enemy3;
+                    break;
+                default:
+            }
+            currentEneHp = newEnemy.getHp();
+            updateEnemyHealthBar();
+        }
     }
 
     //Generate a random math question and its answers
