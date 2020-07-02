@@ -100,7 +100,9 @@ public class StageFragment3 extends Fragment {
                         battleIntent.putExtra("battle_bg", R.drawable.stagefinal_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stagefinal_finalboss);
                         battleIntent.putExtra("exp",100);
+                        battleIntent.putExtra("progress",7);
                         startActivity(battleIntent);
+                        getActivity().finish();
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -143,6 +145,7 @@ public class StageFragment3 extends Fragment {
                                     battleIntent.putExtra("exp",169);
                                     Toast.makeText(getContext(),"[WARNING] MAXIMUM LEVEL D-D-DANGER THERE IS N̴͖̺͈̑́͗̒͠-̷̡̘͕̻̓̇̄N̸̲͑̋̂̅Ȍ̷͇͕̬̀̂͒ ̵̦͊̆͗Ë̷̢̛̪̹͕́̄͘S̶͙͖͓͍̓̍͘͘C̴̘̅̊A̶̪͊P̸̯̝̖̀̓E̷͚͓̭̺̹̒̄̑", Toast.LENGTH_LONG).show();
                                     startActivity(battleIntent);
+                                    getActivity().finish();
                                 }
                             });
                             storyDialog = secretAlertBuilder.create();

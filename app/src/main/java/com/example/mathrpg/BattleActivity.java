@@ -129,26 +129,6 @@ public class BattleActivity extends AppCompatActivity {
 
         pauseAlertBuilder = new AlertDialog.Builder(this, R.style.StoryDialogTheme);
 
-        //TODO: Test button for various functions to test, remove when gameplay completed
-        //Now testing: question and answer generation
-        Button btnTest = (Button)findViewById(R.id.btn_test);
-        btnTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                generateQuestion();
-            }
-        });
-        //Now testing: switching rounds to display enemies of each round
-        Button btnTest2 = (Button)findViewById(R.id.btn_test2);
-        btnTest2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                round++;
-                if(round > 3){round = 1;}
-                updateEnemyDisplay();
-            }
-        });
-
         //TODO: Test answering questions, move to code proper location when implementing turn-based battle mechanic
         btnAns1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,7 +227,7 @@ public class BattleActivity extends AppCompatActivity {
             if(combo==1){
                 tvCombo.setVisibility(View.VISIBLE);
             }
-            tvCombo.setText("COMBO: "+combo);
+            tvCombo.setText(combo + " COMBO!");
             //TODO: Round off value(if needed)
             totalDmg = (1.0 + 0.2*(combo-1))*playerAttack;
             generateQuestion();
@@ -335,6 +315,10 @@ public class BattleActivity extends AppCompatActivity {
             dialog.show();
         }
         else {
+            dmgReceived -= prefs.getInt("defense",0);
+            if(dmgReceived < 1)
+                dmgReceived = 1;
+
             currentHp = currentHp - dmgReceived;
             boolean isGameOver = updatePlayerHealthBar();
 
@@ -533,16 +517,24 @@ public class BattleActivity extends AppCompatActivity {
        // float enmHP=currentEnemy.getHp();
         eneHpGuideline.setGuidelinePercent((float)currentEneHp/currentEnemy.getHp());
         tvBarEneHpValue.setText(currentEneHp + " / " + currentEnemy.getHp());
-
     }
 
-    //Change Round FUnction
+    //Change Round Function
     private void changeRound(){
         Enemy newEnemy = new Enemy();
-        Toast.makeText(this, "Next Stage...", Toast.LENGTH_SHORT).show();
+        if(round>=3)
+            Toast.makeText(this, "Stage complete! +" + getIntent().getIntExtra("exp",0) + " EXP", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(this, "Next Stage...", Toast.LENGTH_SHORT).show();
+
         round++;
         if(round>3){
-            startActivity(new Intent(BattleActivity.this,StageActivity.class));
+            processProgress();
+            processExp();
+
+            Intent intent = new Intent(this, StageActivity.class);
+            startActivity(intent);
+            this.finish();
         }
         else {
             updateEnemyDisplay();
@@ -557,6 +549,39 @@ public class BattleActivity extends AppCompatActivity {
             }
             currentEneHp = newEnemy.getHp();
             updateEnemyHealthBar();
+        }
+    }
+
+    //Update player's stage progress
+    public void processProgress(){
+        if(prefs.getInt("progress",0) < getIntent().getIntExtra("progress",0)){
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt("progress", getIntent().getIntExtra("progress",0));
+            editor.apply();
+        }
+    }
+
+    //Give player EXP and process level up after every stage
+    public void processExp(){
+        int currentExp = prefs.getInt("exp",0) + getIntent().getIntExtra("exp",0);
+
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("exp", currentExp);
+        editor.apply();
+
+        if(prefs.getInt("exp",0) >= prefs.getInt("level",1)*10){
+            int currLevel = prefs.getInt("level",1) + 1;
+            int currHp = prefs.getInt("hp",10) + 4;
+            int currAttack = prefs.getInt("attack",3) + 2;
+            int currDefense = prefs.getInt("defense",1) + 1;
+
+            SharedPreferences.Editor levelupEditor = prefs.edit();
+            levelupEditor.putInt("exp", 0);
+            levelupEditor.putInt("level", currLevel);
+            levelupEditor.putInt("hp", currHp);
+            levelupEditor.putInt("attack", currAttack);
+            levelupEditor.putInt("defense", currDefense);
+            levelupEditor.apply();
         }
     }
 

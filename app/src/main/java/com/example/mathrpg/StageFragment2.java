@@ -110,7 +110,9 @@ public class StageFragment2 extends Fragment {
                         battleIntent.putExtra("battle_bg", R.drawable.stage2_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage2_battle);
                         battleIntent.putExtra("exp",15);
+                        battleIntent.putExtra("progress",4);
                         startActivity(battleIntent);
+                        getActivity().finish();
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -151,7 +153,9 @@ public class StageFragment2 extends Fragment {
                         battleIntent.putExtra("battle_bg", R.drawable.stage2_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage2_battle);
                         battleIntent.putExtra("exp",20);
+                        battleIntent.putExtra("progress",5);
                         startActivity(battleIntent);
+                        getActivity().finish();
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -184,7 +188,9 @@ public class StageFragment2 extends Fragment {
                         battleIntent.putExtra("battle_bg", R.drawable.stage2_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage2_finalboss);
                         battleIntent.putExtra("exp",40);
+                        battleIntent.putExtra("progress",6);
                         startActivity(battleIntent);
+                        getActivity().finish();
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {

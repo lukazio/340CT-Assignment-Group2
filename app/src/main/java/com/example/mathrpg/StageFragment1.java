@@ -97,13 +97,15 @@ public class StageFragment1 extends Fragment {
                         battleIntent.putExtra("enemy1_hp",10);
                         battleIntent.putExtra("enemy2_hp",10);
                         battleIntent.putExtra("enemy3_hp",20);
-                        battleIntent.putExtra("enemy1_attack",5);
-                        battleIntent.putExtra("enemy2_attack",5);
-                        battleIntent.putExtra("enemy3_attack",7);
+                        battleIntent.putExtra("enemy1_attack",4);
+                        battleIntent.putExtra("enemy2_attack",4);
+                        battleIntent.putExtra("enemy3_attack",5);
                         battleIntent.putExtra("battle_bg", R.drawable.stage1_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage1_battle);
-                        battleIntent.putExtra("exp",5);
+                        battleIntent.putExtra("exp",10);
+                        battleIntent.putExtra("progress",1);
                         startActivity(battleIntent);
+                        getActivity().finish();
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -143,8 +145,10 @@ public class StageFragment1 extends Fragment {
                         battleIntent.putExtra("enemy3_attack",7);
                         battleIntent.putExtra("battle_bg", R.drawable.stage1_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage1_battle);
-                        battleIntent.putExtra("exp",10);
+                        battleIntent.putExtra("exp",15);
+                        battleIntent.putExtra("progress",2);
                         startActivity(battleIntent);
+                        getActivity().finish();
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -172,12 +176,14 @@ public class StageFragment1 extends Fragment {
                         Intent battleIntent = new Intent(getContext(), BattleActivity.class);
                         battleIntent.putExtra("enemy3_sprite",R.drawable.stage1_3_boss);
                         battleIntent.putExtra("enemy3_name","Lv.5 Forest Dragon");
-                        battleIntent.putExtra("enemy3_hp",60);
-                        battleIntent.putExtra("enemy3_attack",14);
+                        battleIntent.putExtra("enemy3_hp",80);
+                        battleIntent.putExtra("enemy3_attack",12);
                         battleIntent.putExtra("battle_bg", R.drawable.stage1_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage1_finalboss);
-                        battleIntent.putExtra("exp",20);
+                        battleIntent.putExtra("exp",40);
+                        battleIntent.putExtra("progress",3);
                         startActivity(battleIntent);
+                        getActivity().finish();
                     }
                 });
                 storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
