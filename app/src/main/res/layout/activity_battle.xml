@@ -187,9 +187,10 @@
             android:id="@+id/tv_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:15"
+            android:fontFamily="@font/medievalsharp"
+            android:text="15"
             android:textColor="@color/yellow"
-            android:textSize="20sp"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
@@ -201,7 +202,7 @@
             android:fontFamily="@font/medievalsharp"
             android:text="Combo"
             android:textColor="#FFA726"
-            android:textSize="24sp"
+            android:textSize="26sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_timer" />
 

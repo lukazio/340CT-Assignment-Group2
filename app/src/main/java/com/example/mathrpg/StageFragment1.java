@@ -180,7 +180,7 @@ public class StageFragment1 extends Fragment {
                         battleIntent.putExtra("enemy3_attack",12);
                         battleIntent.putExtra("battle_bg", R.drawable.stage1_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage1_finalboss);
-                        battleIntent.putExtra("exp",40);
+                        battleIntent.putExtra("exp",30);
                         battleIntent.putExtra("progress",3);
                         startActivity(battleIntent);
                         getActivity().finish();
