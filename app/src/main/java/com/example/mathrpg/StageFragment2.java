@@ -101,15 +101,15 @@ public class StageFragment2 extends Fragment {
                         battleIntent.putExtra("enemy1_name","Lv.5 Hungry Yeti");
                         battleIntent.putExtra("enemy2_name","Lv.5 Mischievous Yeti");
                         battleIntent.putExtra("enemy3_name","Lv.6 Angry Elder Yeti");
-                        battleIntent.putExtra("enemy1_hp",1);
-                        battleIntent.putExtra("enemy2_hp",1);
-                        battleIntent.putExtra("enemy3_hp",1);
-                        battleIntent.putExtra("enemy1_attack",1);
-                        battleIntent.putExtra("enemy2_attack",1);
-                        battleIntent.putExtra("enemy3_attack",1);
+                        battleIntent.putExtra("enemy1_hp",50);
+                        battleIntent.putExtra("enemy2_hp",50);
+                        battleIntent.putExtra("enemy3_hp",70);
+                        battleIntent.putExtra("enemy1_attack",10);
+                        battleIntent.putExtra("enemy2_attack",10);
+                        battleIntent.putExtra("enemy3_attack",12);
                         battleIntent.putExtra("battle_bg", R.drawable.stage2_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage2_battle);
-                        battleIntent.putExtra("exp",15);
+                        battleIntent.putExtra("exp",25);
                         battleIntent.putExtra("progress",4);
                         startActivity(battleIntent);
                         getActivity().finish();
@@ -144,15 +144,15 @@ public class StageFragment2 extends Fragment {
                         battleIntent.putExtra("enemy1_name","Lv.7 Brawler Shark");
                         battleIntent.putExtra("enemy2_name","Lv.7 Blind Shark");
                         battleIntent.putExtra("enemy3_name","Lv.8 Shark Warrior General");
-                        battleIntent.putExtra("enemy1_hp",1);
-                        battleIntent.putExtra("enemy2_hp",1);
-                        battleIntent.putExtra("enemy3_hp",1);
-                        battleIntent.putExtra("enemy1_attack",1);
-                        battleIntent.putExtra("enemy2_attack",1);
-                        battleIntent.putExtra("enemy3_attack",1);
+                        battleIntent.putExtra("enemy1_hp",65);
+                        battleIntent.putExtra("enemy2_hp",50);
+                        battleIntent.putExtra("enemy3_hp",90);
+                        battleIntent.putExtra("enemy1_attack",12);
+                        battleIntent.putExtra("enemy2_attack",10);
+                        battleIntent.putExtra("enemy3_attack",15);
                         battleIntent.putExtra("battle_bg", R.drawable.stage2_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage2_battle);
-                        battleIntent.putExtra("exp",20);
+                        battleIntent.putExtra("exp",40);
                         battleIntent.putExtra("progress",5);
                         startActivity(battleIntent);
                         getActivity().finish();
@@ -174,7 +174,7 @@ public class StageFragment2 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 2-3");
-                storyAlertBuilder.setMessage("Your party has beaten the shark monsters and resumes sailing further north throughout the night. The next day, your group reaches a small mysterious island with an eerie atmosphere. The three of you decide to split up and search your surroundings.\n\n\"Guys come here, I found something!\" Marie calls out. \"This doesn't look good!\"\n\nYou and Galter hurry over towards her direction, she points at a tall black portal with ancient carvings.\n\n\"I assume this is what we have to investigate for the quest, it sure looks mysterious enough,\" Galter says.\n\nSuddenly, the ground trembles and the portal lights up, a red dragon with a threatening glare emerges from the portal.\n\nYou alarm the others, \"Be cautious everyone, it looks dangerous!\"");
+                storyAlertBuilder.setMessage("SUGGESTED LEVEL: 10\n\nYour party has beaten the shark monsters and resumes sailing further north throughout the night. The next day, your group reaches a small mysterious island with an eerie atmosphere. The three of you decide to split up and search your surroundings.\n\n\"Guys come here, I found something!\" Marie calls out. \"This doesn't look good!\"\n\nYou and Galter hurry over towards her direction, she points at a tall black portal with ancient carvings.\n\n\"I assume this is what we have to investigate for the quest, it sure looks mysterious enough,\" Galter says.\n\nSuddenly, the ground trembles and the portal lights up, a red dragon with a threatening glare emerges from the portal.\n\nYou alarm the others, \"Be cautious everyone, it looks dangerous!\"");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -183,11 +183,11 @@ public class StageFragment2 extends Fragment {
                         Intent battleIntent = new Intent(getContext(), BattleActivity.class);
                         battleIntent.putExtra("enemy3_sprite",R.drawable.stage2_3_boss);
                         battleIntent.putExtra("enemy3_name","Lv.10 Dragon Warlord");
-                        battleIntent.putExtra("enemy3_hp",1);
-                        battleIntent.putExtra("enemy3_attack",1);
+                        battleIntent.putExtra("enemy3_hp",200);
+                        battleIntent.putExtra("enemy3_attack",22);
                         battleIntent.putExtra("battle_bg", R.drawable.stage2_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage2_finalboss);
-                        battleIntent.putExtra("exp",40);
+                        battleIntent.putExtra("exp",60);
                         battleIntent.putExtra("progress",6);
                         startActivity(battleIntent);
                         getActivity().finish();

@@ -1,11 +1,5 @@
 package com.example.mathrpg;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.Guideline;
-
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,7 +15,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.Guideline;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
@@ -103,6 +100,7 @@ public class BattleActivity extends AppCompatActivity {
         final int attackSound = sp.load(this, R.raw.player_attack,1);
         final int failSound = sp.load(this, R.raw.player_fail,1);
         final int hurtSound = sp.load(this, R.raw.player_hurt,1);
+        final int secretBossIntro = sp.load(this, R.raw.secretboss_intro,1);
 
         //set up countdown timer
         btnBeginTurn.setOnClickListener(new View.OnClickListener() {
@@ -209,6 +207,7 @@ public class BattleActivity extends AppCompatActivity {
         if(getIntent().hasExtra("battle_music")) {
             mp = MediaPlayer.create(this, getIntent().getIntExtra("battle_music", 0));
             mp.setLooping(true);
+            mp.setVolume(0.5f,0.5f);
             mp.start();
         }
 
@@ -228,6 +227,7 @@ public class BattleActivity extends AppCompatActivity {
                 secretAlertBuilder.setPositiveButton("Impending Doom", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        sp.play(secretBossIntro,1,1,1,0,1.0f);
                     }
                 });
                 AlertDialog secretDialog = secretAlertBuilder.create();
@@ -271,11 +271,11 @@ public class BattleActivity extends AppCompatActivity {
 
             //Calculated reduced dmg taken here
             switch (round){
-                case 1: dmgTaken = enemy1.getAttack()/2;
+                case 1: dmgTaken = (enemy1.getAttack() - prefs.getInt("defense",3)) / 2;
                 break;
-                case 2: dmgTaken = enemy2.getAttack()/2;
+                case 2: dmgTaken = (enemy2.getAttack() - prefs.getInt("defense",3)) / 2;
                 break;
-                case 3: dmgTaken = enemy3.getAttack()/2;
+                case 3: dmgTaken = (enemy3.getAttack() - prefs.getInt("defense",3)) / 2;
                 break;
                 default:
             }
@@ -311,11 +311,11 @@ public class BattleActivity extends AppCompatActivity {
 
             //Inserted full damage taken value here
             switch (round){
-                case 1: dmgTaken = enemy1.getAttack();
+                case 1: dmgTaken = enemy1.getAttack() - prefs.getInt("defense",3);
                     break;
-                case 2: dmgTaken = enemy2.getAttack();
+                case 2: dmgTaken = enemy2.getAttack() - prefs.getInt("defense",3);
                     break;
-                case 3: dmgTaken = enemy3.getAttack();
+                case 3: dmgTaken = enemy3.getAttack() - prefs.getInt("defense",3);
                     break;
                 default:
             }
@@ -335,6 +335,13 @@ public class BattleActivity extends AppCompatActivity {
         dialog.setCancelable(false);
 
         if (playerTurn) {
+            btnAns1.setVisibility(View.GONE);
+            btnAns2.setVisibility(View.GONE);
+            btnAns3.setVisibility(View.GONE);
+            tvQuestion.setVisibility(View.GONE);
+            tvTimer.setVisibility(View.GONE);
+            tvTurn.setVisibility(View.GONE);
+
             dialog.setTitle("End of your Turn");
             dialog.setMessage("\nTotal damage dealt: " + dmgMade + "\nDefend yourself now!");
             //Reduced monster hp here
@@ -359,7 +366,6 @@ public class BattleActivity extends AppCompatActivity {
             tvTimer.setVisibility(View.GONE);
             tvTurn.setVisibility(View.GONE);
 
-            dmgReceived -= prefs.getInt("defense",0);
             if(dmgReceived < 1)
                 dmgReceived = 1;
 
@@ -400,6 +406,13 @@ public class BattleActivity extends AppCompatActivity {
         totalDmg = 0;
         dmgTaken = 0;
         combo = 0;
+
+        btnAns1.setVisibility(View.VISIBLE);
+        btnAns2.setVisibility(View.VISIBLE);
+        btnAns3.setVisibility(View.VISIBLE);
+        tvQuestion.setVisibility(View.VISIBLE);
+        tvTimer.setVisibility(View.VISIBLE);
+        tvTurn.setVisibility(View.VISIBLE);
     }
 
     //Function to update Turn Label
@@ -445,15 +458,15 @@ public class BattleActivity extends AppCompatActivity {
                     Toast.makeText(BattleActivity.this, "Taking full damage!", Toast.LENGTH_SHORT).show();
                     //Inserted full damage taken value
                     switch (round){
-                        case 1: dmgTaken = enemy1.getAttack();
+                        case 1: dmgTaken = enemy1.getAttack() - prefs.getInt("defense",3);
                             break;
-                        case 2: dmgTaken = enemy2.getAttack();
+                        case 2: dmgTaken = enemy2.getAttack() - prefs.getInt("defense",3);
                             break;
-                        case 3: dmgTaken = enemy3.getAttack();
+                        case 3: dmgTaken = enemy3.getAttack() - prefs.getInt("defense",3);
                             break;
                         default:
                     }
-                    showEndTurnDialog(0,5);
+                    showEndTurnDialog(0,(int)dmgTaken);
                     playerTurn = true;
                     updateTurnLabel();
                 }
@@ -534,6 +547,11 @@ public class BattleActivity extends AppCompatActivity {
 
     //TODO:Update the HP bar's length and colour according to monster's health level
     public void updateEnemyHealthBar(){
+        //If enemy died
+        if(currentEneHp <= 0) {
+            currentEneHp = 0;
+            changeRound();
+        }
 
         Enemy currentEnemy = new Enemy();
         switch (round){
@@ -552,12 +570,6 @@ public class BattleActivity extends AppCompatActivity {
             default:
         }
 
-        //If enemy died
-        if(currentEneHp <= 0) {
-            currentEneHp = 0;
-            changeRound();
-        }
-
         if((float)currentEneHp/currentEnemy.getHp() <= 0.25)
             eneHpBar.setBackgroundColor(Color.parseColor("#E53935"));
         else if((float)currentEneHp/currentEnemy.getHp() > 0.25 && (float)currentEneHp/currentEnemy.getHp() <= 0.5)
@@ -565,7 +577,6 @@ public class BattleActivity extends AppCompatActivity {
         else
             eneHpBar.setBackgroundColor(Color.parseColor("#43A047"));
 
-       // float enmHP=currentEnemy.getHp();
         eneHpGuideline.setGuidelinePercent((float)currentEneHp/currentEnemy.getHp());
         tvBarEneHpValue.setText(currentEneHp + " / " + currentEnemy.getHp());
     }
@@ -580,12 +591,18 @@ public class BattleActivity extends AppCompatActivity {
 
         round++;
         if(round>3){
+            if(mCountDownTimer != null)
+                mCountDownTimer.cancel();
+
+            mTimerRunning = false;
+
             processProgress();
             processExp();
 
             Intent intent = new Intent(this, StageActivity.class);
             startActivity(intent);
             BattleActivity.super.onBackPressed();
+            BattleActivity.this.finish();
         }
         else {
             updateEnemyDisplay();

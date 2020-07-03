@@ -96,7 +96,7 @@ public class StageFragment1 extends Fragment {
                         battleIntent.putExtra("enemy3_name","Lv.2 Froggo Shaman");
                         battleIntent.putExtra("enemy1_hp",10);
                         battleIntent.putExtra("enemy2_hp",10);
-                        battleIntent.putExtra("enemy3_hp",20);
+                        battleIntent.putExtra("enemy3_hp",15);
                         battleIntent.putExtra("enemy1_attack",4);
                         battleIntent.putExtra("enemy2_attack",4);
                         battleIntent.putExtra("enemy3_attack",5);
@@ -137,10 +137,10 @@ public class StageFragment1 extends Fragment {
                         battleIntent.putExtra("enemy1_name","Lv.2 Thorn Plant");
                         battleIntent.putExtra("enemy2_name","Lv.2 Flowering Plant");
                         battleIntent.putExtra("enemy3_name","Lv.3 Raging Plant Queen");
-                        battleIntent.putExtra("enemy1_hp",15);
-                        battleIntent.putExtra("enemy2_hp",25);
+                        battleIntent.putExtra("enemy1_hp",10);
+                        battleIntent.putExtra("enemy2_hp",20);
                         battleIntent.putExtra("enemy3_hp",30);
-                        battleIntent.putExtra("enemy1_attack",6);
+                        battleIntent.putExtra("enemy1_attack",7);
                         battleIntent.putExtra("enemy2_attack",5);
                         battleIntent.putExtra("enemy3_attack",7);
                         battleIntent.putExtra("battle_bg", R.drawable.stage1_battle_bg);
@@ -167,7 +167,7 @@ public class StageFragment1 extends Fragment {
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Stage 1-3");
-                storyAlertBuilder.setMessage("You let out a sigh of relief as the last of the plant monsters fall. However, the victory was short-lived, a threatening roar echoes the forest shortly after the battle.\n\n\"That does not sound good...\" Galter says, with an increasingly worried look.\n\nMaria looks to the sky. \"Oh no, that's a dragon, it's heading this way!\" She exclaims.\n\nYou ready your magical powers and shout, \"Be careful everyone, it looks strong!\"");
+                storyAlertBuilder.setMessage("SUGGESTED LEVEL: 5\n\nYou let out a sigh of relief as the last of the plant monsters fall. However, the victory was short-lived, a threatening roar echoes the forest shortly after the battle.\n\n\"That does not sound good...\" Galter says, with an increasingly worried look.\n\nMaria looks to the sky. \"Oh no, that's a dragon, it's heading this way!\" She exclaims.\n\nYou ready your magical powers and shout, \"Be careful everyone, it looks strong!\"");
                 storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -176,8 +176,8 @@ public class StageFragment1 extends Fragment {
                         Intent battleIntent = new Intent(getContext(), BattleActivity.class);
                         battleIntent.putExtra("enemy3_sprite",R.drawable.stage1_3_boss);
                         battleIntent.putExtra("enemy3_name","Lv.5 Forest Dragon");
-                        battleIntent.putExtra("enemy3_hp",80);
-                        battleIntent.putExtra("enemy3_attack",12);
+                        battleIntent.putExtra("enemy3_hp",85);
+                        battleIntent.putExtra("enemy3_attack",13);
                         battleIntent.putExtra("battle_bg", R.drawable.stage1_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage1_finalboss);
                         battleIntent.putExtra("exp",30);
