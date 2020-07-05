@@ -94,8 +94,8 @@ public class StageFragment1 extends Fragment {
                         battleIntent.putExtra("enemy1_name","Lv.1 Sad Froggo");
                         battleIntent.putExtra("enemy2_name","Lv.1 Asian Froggo");
                         battleIntent.putExtra("enemy3_name","Lv.2 Froggo Shaman");
-                        battleIntent.putExtra("enemy1_hp",10);
-                        battleIntent.putExtra("enemy2_hp",10);
+                        battleIntent.putExtra("enemy1_hp",5);
+                        battleIntent.putExtra("enemy2_hp",5);
                         battleIntent.putExtra("enemy3_hp",15);
                         battleIntent.putExtra("enemy1_attack",4);
                         battleIntent.putExtra("enemy2_attack",4);
@@ -176,8 +176,8 @@ public class StageFragment1 extends Fragment {
                         Intent battleIntent = new Intent(getContext(), BattleActivity.class);
                         battleIntent.putExtra("enemy3_sprite",R.drawable.stage1_3_boss);
                         battleIntent.putExtra("enemy3_name","Lv.5 Forest Dragon");
-                        battleIntent.putExtra("enemy3_hp",85);
-                        battleIntent.putExtra("enemy3_attack",13);
+                        battleIntent.putExtra("enemy3_hp",100);
+                        battleIntent.putExtra("enemy3_attack",11);
                         battleIntent.putExtra("battle_bg", R.drawable.stage1_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage1_finalboss);
                         battleIntent.putExtra("exp",30);

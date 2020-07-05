@@ -10,7 +10,10 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,7 +34,7 @@ public class BattleActivity extends AppCompatActivity {
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
 
     private ConstraintLayout clBgStage;
-    private TextView tvEnemyName,tvQuestion,tvTimer,tvBarHpValue,hpBar,tvCombo,tvTurn,tvBarEneHpValue,eneHpBar;
+    private TextView tvEnemyName,tvQuestion,tvTimer,tvBarHpValue,hpBar,tvCombo,tvTurn,tvBarEneHpValue,eneHpBar,tvEnemyDamage,tvPlayerDamage;
     private ImageView ivEnemy;
     private SharedPreferences prefs;
     private MediaPlayer mp;
@@ -42,13 +45,17 @@ public class BattleActivity extends AppCompatActivity {
     private Guideline hpGuideline,eneHpGuideline;
 
     //Battle stage variables (player's current HP, monster stats, stage EXP, etc.)
-    private int currentHp,maxHp,stageExp,playerAttack,currentEneHp;
+    private int currentHp,maxHp,playerAttack,currentEneHp;
     private double totalDmg,dmgTaken;
     private Enemy enemy1,enemy2,enemy3;
 
     //Battle gameplay variables (correct answer button, turn, etc.)
     private int answerButton,combo,round=1;
     private boolean playerTurn;
+
+    //Damage splash
+    private Handler mHandler = new Handler();
+    private Animation myanim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +74,8 @@ public class BattleActivity extends AppCompatActivity {
         hpBar = (TextView)findViewById(R.id.hp_bar);
         eneHpBar = (TextView)findViewById(R.id.ene_hp_bar);
         tvBarEneHpValue = (TextView)findViewById(R.id.tv_bar_ene_hp_value);
+        tvEnemyDamage = (TextView)findViewById(R.id.tv_enemy_damage);
+        tvPlayerDamage = (TextView)findViewById(R.id.tv_player_damage);
         ivEnemy = (ImageView)findViewById(R.id.iv_enemy);
         btnPause = (Button)findViewById(R.id.btn_pause);
         btnAns1 = (Button)findViewById(R.id.btn_ans1);
@@ -74,8 +83,7 @@ public class BattleActivity extends AppCompatActivity {
         btnAns3 = (Button)findViewById(R.id.btn_ans3);
         hpGuideline = (Guideline)findViewById(R.id.guideline_hp);
         eneHpGuideline = (Guideline)findViewById(R.id.guideline_ene_hp);
-        btnBeginTurn=(Button)findViewById(R.id.btn_begin) ;
-        //btnreset=(Button)findViewById(R.id.btn_reset);
+        btnBeginTurn = (Button)findViewById(R.id.btn_begin);
 
         tvQuestion.setVisibility(View.GONE);
         tvTimer.setVisibility(View.GONE);
@@ -90,7 +98,6 @@ public class BattleActivity extends AppCompatActivity {
         enemy1 = new Enemy();
         enemy2 = new Enemy();
         enemy3 = new Enemy();
-        stageExp = getIntent().getIntExtra("exp",0);
 
         //Sound effects
         sp = new SoundPool.Builder().setMaxStreams(5).build();
@@ -101,6 +108,9 @@ public class BattleActivity extends AppCompatActivity {
         final int failSound = sp.load(this, R.raw.player_fail,1);
         final int hurtSound = sp.load(this, R.raw.player_hurt,1);
         final int secretBossIntro = sp.load(this, R.raw.secretboss_intro,1);
+
+        //Damage splash effect
+        myanim = AnimationUtils.loadAnimation(this,R.anim.mytransition);
 
         //set up countdown timer
         btnBeginTurn.setOnClickListener(new View.OnClickListener() {
@@ -267,7 +277,7 @@ public class BattleActivity extends AppCompatActivity {
         //When it's enemy's turn
         else{
             sp.play(sound,1,1,1,0,1.0f);
-            Toast.makeText(BattleActivity.this, "Correct! Reducing damage...", Toast.LENGTH_SHORT).show();
+            tvPlayerDamage.setBackground(getDrawable(R.drawable.player_guard));
 
             //Calculated reduced dmg taken here
             switch (round){
@@ -307,7 +317,7 @@ public class BattleActivity extends AppCompatActivity {
         //When it's enemy's turn
         else{
             sp.play(sound,1,1,1,0,1.0f);
-            Toast.makeText(BattleActivity.this, "Taking full damage!", Toast.LENGTH_SHORT).show();
+            tvPlayerDamage.setBackground(getDrawable(R.drawable.player_hurt));
 
             //Inserted full damage taken value here
             switch (round){
@@ -327,7 +337,7 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     //END TURN dialog
-    private void showEndTurnDialog(int dmgMade, int dmgReceived) {
+    private void showEndTurnDialog(final int dmgMade, int dmgReceived) {
         stopTimer();
         resetTimer();
 
@@ -342,12 +352,27 @@ public class BattleActivity extends AppCompatActivity {
             tvTimer.setVisibility(View.GONE);
             tvTurn.setVisibility(View.GONE);
 
-            dialog.setTitle("End of your Turn");
-            dialog.setMessage("\nTotal damage dealt: " + dmgMade + "\nDefend yourself now!");
+            //dialog.setTitle("End of your Turn");
+            //dialog.setMessage("\nTotal damage dealt: " + dmgMade + "\nDefend yourself now!");
             //Reduced monster hp here
             currentEneHp = currentEneHp - dmgMade;
             tvCombo.setVisibility(View.GONE);
             updateEnemyHealthBar();
+
+            tvEnemyDamage.setText(""+dmgMade);
+            tvEnemyDamage.setVisibility(View.VISIBLE);
+            tvEnemyDamage.startAnimation(myanim);
+
+            if(currentEneHp > 0) {
+                mHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvEnemyDamage.setVisibility(View.INVISIBLE);
+                        startNew();
+                    }
+                }, 1500);
+            }
+
+            /*
             dialog.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -356,9 +381,9 @@ public class BattleActivity extends AppCompatActivity {
                 }
             });
             dialog.show();
+             */
         }
         else {
-            btnBeginTurn.setVisibility(View.VISIBLE);
             btnAns1.setVisibility(View.GONE);
             btnAns2.setVisibility(View.GONE);
             btnAns3.setVisibility(View.GONE);
@@ -375,7 +400,7 @@ public class BattleActivity extends AppCompatActivity {
             if(isGameOver){
                 dialog.setTitle("GAME OVER");
                 //dialog.setCancelable(false);
-                dialog.setMessage("better luck next time!");
+                dialog.setMessage("Better luck next time!");
                 dialog.setPositiveButton("Back", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -383,18 +408,28 @@ public class BattleActivity extends AppCompatActivity {
                         BattleActivity.super.onBackPressed();
                     }
                 });
+                dialog.show();
             }
             else{
-                dialog.setTitle("End of enemy's Turn");
-                dialog.setMessage("You've received " + dmgReceived + " damage from the enemy's attack!");
-                dialog.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                tvPlayerDamage.setText(""+dmgReceived);
+                tvPlayerDamage.setVisibility(View.VISIBLE);
+                tvPlayerDamage.startAnimation(myanim);
+
+                mHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        btnBeginTurn.setVisibility(View.VISIBLE);
+                        tvPlayerDamage.setVisibility(View.INVISIBLE);
                     }
-                });
+                },1500);
+                //dialog.setTitle("End of enemy's Turn");
+                //dialog.setMessage("You've received " + dmgReceived + " damage from the enemy's attack!");
+                //dialog.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                //    @Override
+                //    public void onClick(DialogInterface dialog, int which) {
+                //        dialog.dismiss();
+                //    }
+                //});
             }
-            dialog.show();
         }
 
     }
@@ -447,7 +482,6 @@ public class BattleActivity extends AppCompatActivity {
                     else
                         sp.play(failSound,1,1,1,0,1.0f);
 
-                    Toast.makeText(BattleActivity.this, "It's enemy turn now!", Toast.LENGTH_SHORT).show();
                     showEndTurnDialog((int)totalDmg,0);
                     playerTurn = false;
                     updateTurnLabel();
@@ -455,7 +489,7 @@ public class BattleActivity extends AppCompatActivity {
 
                 //When it's enemy's turn
                 else{
-                    Toast.makeText(BattleActivity.this, "Taking full damage!", Toast.LENGTH_SHORT).show();
+                    tvPlayerDamage.setBackground(getDrawable(R.drawable.player_hurt));
                     //Inserted full damage taken value
                     switch (round){
                         case 1: dmgTaken = enemy1.getAttack() - prefs.getInt("defense",3);
@@ -633,12 +667,14 @@ public class BattleActivity extends AppCompatActivity {
     public void processExp(){
         int currentExp = prefs.getInt("exp",0) + getIntent().getIntExtra("exp",0);
 
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("exp", currentExp);
-        editor.apply();
+        if(prefs.getInt("level",1) < 20){
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt("exp", currentExp);
+            editor.apply();
+        }
 
         //Level up
-        if(prefs.getInt("exp",0) >= prefs.getInt("level",1)*10){
+        if(prefs.getInt("exp",0) >= prefs.getInt("level",1)*10 && prefs.getInt("level",1) < 20){
             int currLevel = prefs.getInt("level",1) + 1;
             int currHp = prefs.getInt("hp",10) + 4;
             int currAttack = prefs.getInt("attack",3) + 2;

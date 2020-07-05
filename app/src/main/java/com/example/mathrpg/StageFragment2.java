@@ -103,7 +103,7 @@ public class StageFragment2 extends Fragment {
                         battleIntent.putExtra("enemy3_name","Lv.6 Angry Elder Yeti");
                         battleIntent.putExtra("enemy1_hp",50);
                         battleIntent.putExtra("enemy2_hp",50);
-                        battleIntent.putExtra("enemy3_hp",70);
+                        battleIntent.putExtra("enemy3_hp",60);
                         battleIntent.putExtra("enemy1_attack",10);
                         battleIntent.putExtra("enemy2_attack",10);
                         battleIntent.putExtra("enemy3_attack",12);
@@ -144,12 +144,12 @@ public class StageFragment2 extends Fragment {
                         battleIntent.putExtra("enemy1_name","Lv.7 Brawler Shark");
                         battleIntent.putExtra("enemy2_name","Lv.7 Blind Shark");
                         battleIntent.putExtra("enemy3_name","Lv.8 Shark Warrior General");
-                        battleIntent.putExtra("enemy1_hp",65);
+                        battleIntent.putExtra("enemy1_hp",60);
                         battleIntent.putExtra("enemy2_hp",50);
-                        battleIntent.putExtra("enemy3_hp",90);
+                        battleIntent.putExtra("enemy3_hp",80);
                         battleIntent.putExtra("enemy1_attack",12);
                         battleIntent.putExtra("enemy2_attack",10);
-                        battleIntent.putExtra("enemy3_attack",15);
+                        battleIntent.putExtra("enemy3_attack",14);
                         battleIntent.putExtra("battle_bg", R.drawable.stage2_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage2_battle);
                         battleIntent.putExtra("exp",40);
@@ -184,10 +184,10 @@ public class StageFragment2 extends Fragment {
                         battleIntent.putExtra("enemy3_sprite",R.drawable.stage2_3_boss);
                         battleIntent.putExtra("enemy3_name","Lv.10 Dragon Warlord");
                         battleIntent.putExtra("enemy3_hp",200);
-                        battleIntent.putExtra("enemy3_attack",22);
+                        battleIntent.putExtra("enemy3_attack",20);
                         battleIntent.putExtra("battle_bg", R.drawable.stage2_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stage2_finalboss);
-                        battleIntent.putExtra("exp",60);
+                        battleIntent.putExtra("exp",70);
                         battleIntent.putExtra("progress",6);
                         startActivity(battleIntent);
                         getActivity().finish();

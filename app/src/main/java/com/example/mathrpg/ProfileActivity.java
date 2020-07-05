@@ -69,6 +69,9 @@ public class ProfileActivity extends AppCompatActivity {
         tvPlayerDefense.setText(prefs.getInt("defense",404)+"");
         tvPlayerLevel.setText(prefs.getInt("level",404)+"");
         tvPlayerMaxHP.setText(prefs.getInt("hp",404)+"");
-        tvPlayerNextLevel.setText((prefs.getInt("level",1)*10 - prefs.getInt("exp",404))+"");
+        if(prefs.getInt("level",1) < 20)
+            tvPlayerNextLevel.setText((prefs.getInt("level",1)*10 - prefs.getInt("exp",0))+"");
+        else
+            tvPlayerNextLevel.setText("MAX");
     }
 }
