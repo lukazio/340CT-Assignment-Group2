@@ -25,7 +25,7 @@ import java.util.Objects;
  */
 public class StageFragment3 extends Fragment {
 
-    private Button btnStageFinal,btnStageSecret;
+    private Button btnStage3,btnStageFinal,btnStageSecret;
     private AlertDialog.Builder storyAlertBuilder;
     private AlertDialog storyDialog;
     private SoundPool sp;
@@ -41,6 +41,7 @@ public class StageFragment3 extends Fragment {
 
         prefs = getContext().getSharedPreferences("User", Context.MODE_PRIVATE);
 
+        btnStage3 = (Button)view.findViewById(R.id.btn_stage3);
         btnStageFinal = (Button)view.findViewById(R.id.btn_stage_final);
         btnStageSecret = (Button)view.findViewById(R.id.btn_stage_secret);
         sp = new SoundPool.Builder().build();
@@ -52,8 +53,17 @@ public class StageFragment3 extends Fragment {
         //Track player progression, must finish stages in order, each NEW completed stage increments progress by 1
         if(!(prefs.getString("name","404").contentEquals("admin") && DebugGame.isAllStages())){
             if(prefs.contains("progress")){
-                //Final stage
+                //Stage 3
                 if(prefs.getInt("progress",0) >= 6){
+                    btnStage3.setEnabled(true);
+                    btnStage3.setAlpha(1.0f);
+                }
+                else{
+                    btnStage3.setEnabled(false);
+                    btnStage3.setAlpha(0.5f);
+                }
+                //Final stage
+                if(prefs.getInt("progress",0) >= 7){
                     btnStageFinal.setEnabled(true);
                     btnStageFinal.setAlpha(1.0f);
                 }
@@ -62,7 +72,7 @@ public class StageFragment3 extends Fragment {
                     btnStageFinal.setAlpha(0.5f);
                 }
                 //Secret stage
-                if(prefs.getInt("progress",0) >= 7){
+                if(prefs.getInt("progress",0) >= 8){
                     btnStageSecret.setEnabled(true);
                     btnStageSecret.setVisibility(View.VISIBLE);
                 }
@@ -73,12 +83,47 @@ public class StageFragment3 extends Fragment {
             }
         }
 
+        btnStage3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sp.play(selectSound,1,1,1,0,1.0f);
+                storyAlertBuilder.setTitle("Stage 3");
+                storyAlertBuilder.setMessage("SUGGESTED LEVEL: 12\n\nAfter a fierce fight with the dragon warlord, your party jumps through the portal and is taken to an unfamiliar location. An enormous castle looms over your party.\n\n\"Oh my god, this looks huge!\" Maria exclaims. \"I can feel tremendous power residing within the castle walls,\" she adds as she backs away cautiously.\n\nSuddenly, an earsplitting roar blasts your party from the portal behind, the red dragon climbs through the portal painfully. It looks at you with a deathly grin.\n\n\"Looks like this is its full power, be careful everyone!\" You warn the others.");
+                storyAlertBuilder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        sp.play(confirmSound,1,1,1,0,1.0f);
+                        //Pass Stage 2-3 info to BattleActivity
+                        Intent battleIntent = new Intent(getContext(), BattleActivity.class);
+                        battleIntent.putExtra("enemy3_sprite",R.drawable.stage3_1_boss);
+                        battleIntent.putExtra("enemy3_name","Lv.12 Angry Dragon Warlord");
+                        battleIntent.putExtra("enemy3_hp",400);
+                        battleIntent.putExtra("enemy3_attack",22);
+                        battleIntent.putExtra("battle_bg", R.drawable.stage3_battle_bg);
+                        battleIntent.putExtra("battle_music", R.raw.bgm_stagefinal_battle);
+                        battleIntent.putExtra("exp",100);
+                        battleIntent.putExtra("progress",7);
+                        startActivity(battleIntent);
+                        getActivity().finish();
+                    }
+                });
+                storyAlertBuilder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                storyDialog = storyAlertBuilder.create();
+                Objects.requireNonNull(storyDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E2C00")));
+                storyDialog.show();
+            }
+        });
         btnStageFinal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sp.play(selectSound,1,1,1,0,1.0f);
                 storyAlertBuilder.setTitle("Final Battle");
-                storyAlertBuilder.setMessage("SUGGESTED LEVEL: 15\n\n\"My lord, I have failed you...\" the red dragon mutters as it breathes its last.\n\nYour party jumps through the portal and is taken to an unfamiliar location. An enormous castle looms over your party.\n\n\"Oh my god, this looks huge!\" Marie exclaims. \"I can feel tremendous power residing within the castle walls,\" she adds as she backs away cautiously.\n\nThe giant doors of the castle slowly open as if inviting your party into the building. Your group vigilantly proceeds into the castle, expecting danger from the shadows. A menacing blue dragon greets them in the main hall.\n\n\"You have done well to make it this far, but your adventure ends here!\" The dragon roars.\n\n\"This is the strongest beast we've faced thus far, stay sharp!\" You caution the others as you tighten your grip on your staff.\n\nIt dashes towards your party, \"I, THE DARK DRAGON LORD, WILL DESTROY ALL HUMANS AND THE WORLD!\"");
+                storyAlertBuilder.setMessage("SUGGESTED LEVEL: 15\n\n\"My lord, I have failed you...\" the red dragon mutters as it breathes its last.\n\nThe giant doors of the castle slowly open as if inviting your party into the building. Your group vigilantly proceeds into the castle, expecting danger from the shadows. A menacing blue dragon greets them in the main hall.\n\n\"You have done well to make it this far, but your adventure ends here!\" The dragon roars.\n\n\"This is the strongest beast we've faced thus far, stay sharp!\" You caution the others as you tighten your grip on your staff.\n\nIt dashes towards your party, \"I, THE DARK DRAGON LORD, WILL DESTROY ALL HUMANS AND THE WORLD!\"");
                 storyAlertBuilder.setPositiveButton("To Battle!", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -100,7 +145,7 @@ public class StageFragment3 extends Fragment {
                         battleIntent.putExtra("battle_bg", R.drawable.stagefinal_battle_bg);
                         battleIntent.putExtra("battle_music", R.raw.bgm_stagefinal_finalboss);
                         battleIntent.putExtra("exp",150);
-                        battleIntent.putExtra("progress",7);
+                        battleIntent.putExtra("progress",8);
                         startActivity(battleIntent);
                         getActivity().finish();
                     }

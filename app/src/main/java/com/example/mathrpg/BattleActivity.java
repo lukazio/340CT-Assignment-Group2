@@ -232,7 +232,7 @@ public class BattleActivity extends AppCompatActivity {
         if(getIntent().hasExtra("battle_music")) {
             mp = MediaPlayer.create(this, getIntent().getIntExtra("battle_music", 0));
             mp.setLooping(true);
-            mp.setVolume(0.5f,0.5f);
+            mp.setVolume(0.75f,0.75f);
             mp.start();
         }
 
