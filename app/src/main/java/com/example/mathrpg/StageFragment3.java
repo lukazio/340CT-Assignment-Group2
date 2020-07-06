@@ -184,7 +184,7 @@ public class StageFragment3 extends Fragment {
                                     battleIntent.putExtra("enemy3_sprite",R.drawable.stagesecret_boss);
                                     battleIntent.putExtra("enemy3_name","Lv.20 Milos the Midnight Dancer");
                                     battleIntent.putExtra("enemy3_hp",1666);
-                                    battleIntent.putExtra("enemy3_attack",33);
+                                    battleIntent.putExtra("enemy3_attack",35);
                                     battleIntent.putExtra("battle_bg", R.drawable.stagesecret_battle_bg);
                                     battleIntent.putExtra("battle_music", R.raw.bgm_stagesecret_finalboss);
                                     battleIntent.putExtra("exp",169);
