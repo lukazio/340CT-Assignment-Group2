@@ -1,5 +1,6 @@
 package com.example.mathrpg;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,13 +12,23 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -57,12 +68,16 @@ public class BattleActivity extends AppCompatActivity {
     private Handler mHandler = new Handler();
     private Animation myanim;
 
+    //Firebase
+    private FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
 
         prefs = getSharedPreferences("User", Context.MODE_PRIVATE);
+        db = FirebaseFirestore.getInstance();
 
         clBgStage = (ConstraintLayout)findViewById(R.id.cl_bg_stage);
         tvEnemyName = (TextView)findViewById(R.id.tv_enemy_name);
@@ -633,10 +648,6 @@ public class BattleActivity extends AppCompatActivity {
             processProgress();
             processExp();
 
-            Intent intent = new Intent(this, StageActivity.class);
-            startActivity(intent);
-            BattleActivity.super.onBackPressed();
-            BattleActivity.this.finish();
         }
         else {
             updateEnemyDisplay();
@@ -663,8 +674,27 @@ public class BattleActivity extends AppCompatActivity {
         }
     }
 
+    //Global dismissable Syncing AlertDialog
+    private Dialog syncDialog;
     //Give player EXP and process level up after every stage
     public void processExp(){
+
+        //Dialog Layout
+        LinearLayout ll = new LinearLayout(BattleActivity.this);
+        ll.setGravity(Gravity.CENTER);
+        ll.setPadding(32,32,32,32);
+        ProgressBar pb = new ProgressBar(BattleActivity.this);
+        ll.addView(pb);
+
+        AlertDialog.Builder syncingDialog = new AlertDialog.Builder(BattleActivity.this);
+        syncingDialog.setTitle("Syncing Data")
+                .setCancelable(false)
+                .setMessage("Syncing Data to Cloud...Please wait...")
+                .setView(ll);
+
+        syncDialog = syncingDialog.create();
+        syncDialog.show();
+
         int currentExp = prefs.getInt("exp",0) + getIntent().getIntExtra("exp",0);
 
         if(prefs.getInt("level",1) < 20){
@@ -688,6 +718,33 @@ public class BattleActivity extends AppCompatActivity {
             levelupEditor.putInt("defense", currDefense);
             levelupEditor.apply();
         }
+
+        db.collection("Users").document(prefs.getString("uid",""))
+                .update(
+                        "progress",prefs.getInt("progress",0),
+                        "exp",prefs.getInt("exp",0),
+                        "level", prefs.getInt("level",0),
+                        "hp", prefs.getInt("hp",0),
+                        "attack", prefs.getInt("attack",0),
+                        "defense", prefs.getInt("defense",0)
+                        )
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        syncDialog.dismiss();
+                        Intent intent = new Intent(BattleActivity.this, StageActivity.class);
+                        startActivity(intent);
+                        BattleActivity.super.onBackPressed();
+                        BattleActivity.this.finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(BattleActivity.this, "Syncing Failed : \n"+e.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 
     //Generate a random math question and its answers
