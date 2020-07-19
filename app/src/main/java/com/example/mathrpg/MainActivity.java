@@ -140,7 +140,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //Release SoundPool when activity is done
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder exitAlert = new AlertDialog.Builder(MainActivity.this);
+        exitAlert.setTitle("Exit Game");
+        exitAlert.setMessage("Quit the game?");
+        exitAlert.setPositiveButton("Quit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                MainActivity.this.finishAffinity();
+            }
+        });
+        exitAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        exitAlert.show();
+    }
+
+    //Release SoundPool object from memory when activity is done
     @Override
     protected void onDestroy() {
         super.onDestroy();
